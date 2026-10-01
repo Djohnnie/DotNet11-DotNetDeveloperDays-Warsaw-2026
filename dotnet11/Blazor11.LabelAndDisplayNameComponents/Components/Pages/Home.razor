@@ -1,0 +1,62 @@
+@page "/"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Components.Forms
+
+<PageTitle>Home</PageTitle>
+
+<h1>Label and DisplayName components</h1>
+
+<p>
+    .NET 11 adds two built-in form components: <code>Label&lt;T&gt;</code> (semantic, accessible
+    form labels bound to a field via <code>For</code>) and <code>DisplayName&lt;T&gt;</code>
+    (renders the <code>[Display(Name = "...")]</code> metadata for a property anywhere on the page).
+    Both replace manually writing out label text and keeping it in sync with data annotations.
+</p>
+
+<EditForm Model="model" OnValidSubmit="Submit">
+    <div class="mb-3">
+        @* Non-nested pattern: the Label renders its own <label for="..."> pointing at the input that follows. *@
+        <Label For="() => model.Name" />
+        <InputText @bind-Value="model.Name" class="form-control" />
+    </div>
+
+    <div class="mb-3">
+        @* Nested pattern: the InputText is the Label's ChildContent, so everything is wrapped in one <label>. *@
+        <Label For="() => model.Email">
+            <InputText @bind-Value="model.Email" class="form-control" />
+        </Label>
+    </div>
+
+    <p>
+        Elsewhere on the page, <code>DisplayName</code> reads the same
+        <code>[Display(Name = "...")]</code> metadata without needing a form field:
+        the "Name" field is labeled "<DisplayName For="() => model.Name" />" and
+        "Email" is labeled "<DisplayName For="() => model.Email" />".
+    </p>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</EditForm>
+
+@if (submitted)
+{
+    <p class="mt-3">Submitted: @model.Name (@model.Email)</p>
+}
+
+@code {
+    private readonly ContactModel model = new();
+    private bool submitted;
+
+    private void Submit()
+    {
+        submitted = true;
+    }
+
+    public class ContactModel
+    {
+        [Display(Name = "Full name")]
+        public string Name { get; set; } = "";
+
+        [Display(Name = "Email address")]
+        public string Email { get; set; } = "";
+    }
+}

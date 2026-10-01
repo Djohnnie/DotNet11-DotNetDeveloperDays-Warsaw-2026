@@ -1,0 +1,44 @@
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>SupplyParameterFromTempData</h1>
+
+@if (messageToShow is not null)
+{
+    <div class="alert alert-success">@messageToShow</div>
+}
+
+<p>
+    Submitting this form runs <code>HandleSubmit</code> on the server, which sets the
+    <code>StatusMessage</code> property below. Because it's decorated with
+    <code>[SupplyParameterFromTempData]</code>, that write goes straight into TempData, and it's
+    read back automatically on the very next request - the post-redirect-get "one-time success
+    message" pattern, without hand-rolling a redirect helper. Unlike classic TempData, the value
+    isn't dropped automatically after one read: since the property is read/write, whatever it's
+    set to at the end of a request is what gets persisted for the next one - so this page clears
+    it itself (<code>StatusMessage = null</code>) right after displaying it once.
+</p>
+
+<EditForm Model="this" FormName="update-profile" OnValidSubmit="HandleSubmit">
+    <AntiforgeryToken />
+    <button type="submit" class="btn btn-primary">Update profile</button>
+</EditForm>
+
+@code {
+    private string? messageToShow;
+
+    [SupplyParameterFromTempData]
+    public string? StatusMessage { get; set; }
+
+    protected override void OnInitialized()
+    {
+        messageToShow = StatusMessage;
+        StatusMessage = null;
+    }
+
+    private void HandleSubmit()
+    {
+        StatusMessage = $"Profile updated at {DateTime.Now:T}.";
+    }
+}

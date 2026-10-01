@@ -1,0 +1,35 @@
+
+.NET 11 Preview blog posts
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-1/
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-2/
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-3/
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-4/
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-5/
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-6/
+https://devblogs.microsoft.com/dotnet/dotnet-11-preview-7/
+
+What's new in C# 15
+https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-15
+
+GitHub release notes
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview1/README.md
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview2/README.md
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview3/README.md
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview4/README.md
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview5/README.md
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview6/README.md
+https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/README.md
+
+What's New in EF Core 11
+https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-11.0/whatsnew
+
+Notes on this solution
+- Built and verified against the .NET 11 Preview 6 SDK (11.0.100-preview.6.26359.118), the highest
+  globally-installed SDK at authoring time.
+- A handful of projects need the .NET 11 Preview 7 SDK (11.0.100-preview.7.26381.103) because the API
+  they demonstrate only landed in that preview. Those project folders each carry their own global.json
+  pinning the Preview 7 SDK - install it (e.g. via dotnet-install.ps1/.sh with -Channel 11.0 -Quality
+  preview) before opening/building them if you don't already have it.
+- Several APIs described in the devblogs prose didn't match what actually ships (renamed members, extra
+  required calls, etc.) - each affected project's comments call out what was verified empirically against
+  the installed SDK/reference assemblies rather than trusted from the blog text as-is.

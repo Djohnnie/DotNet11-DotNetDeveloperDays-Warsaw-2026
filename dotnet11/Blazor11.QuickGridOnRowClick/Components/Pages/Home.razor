@@ -1,0 +1,44 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.QuickGrid
+
+<PageTitle>Home</PageTitle>
+
+<h1>QuickGrid OnRowClick</h1>
+
+<p>
+    .NET 11 adds an <code>OnRowClick</code> event callback to <code>QuickGrid&lt;T&gt;</code>,
+    so clicking anywhere on a row can drive selection/navigation without wiring up a click
+    handler on every column or template.
+</p>
+
+<QuickGrid TGridItem="Person" Items="@people.AsQueryable()" OnRowClick="HandleRowClick" RowClass="GetRowClass">
+    <PropertyColumn Property="@(p => p.Id)" />
+    <PropertyColumn Property="@(p => p.Name)" />
+    <PropertyColumn Property="@(p => p.Department)" />
+</QuickGrid>
+
+@if (selected is not null)
+{
+    <p class="mt-3">Selected: <strong>@selected.Name</strong> (@selected.Department)</p>
+}
+
+@code {
+    private Person? selected;
+
+    private readonly List<Person> people =
+    [
+        new(1, "Alice Smith", "Engineering"),
+        new(2, "Bob Johnson", "Marketing"),
+        new(3, "Carol Williams", "Engineering"),
+    ];
+
+    private void HandleRowClick(Person person)
+    {
+        selected = person;
+    }
+
+    private string GetRowClass(Person person) =>
+        person == selected ? "table-active" : "";
+
+    public record Person(int Id, string Name, string Department);
+}

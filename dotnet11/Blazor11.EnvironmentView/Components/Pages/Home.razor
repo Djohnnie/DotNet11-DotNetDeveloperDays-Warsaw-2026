@@ -1,0 +1,27 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@inject IWebHostEnvironment Environment
+
+<PageTitle>Home</PageTitle>
+
+<h1>EnvironmentView component</h1>
+
+<p>Current hosting environment: <strong>@Environment.EnvironmentName</strong></p>
+
+<EnvironmentView Include="Development">
+    <div class="alert alert-warning">
+        Debug mode enabled. This block only renders when the app is running in the "Development" environment.
+    </div>
+</EnvironmentView>
+
+<EnvironmentView Include="Development,Staging">
+    <p>Pre-production environment banner. Renders in "Development" or "Staging".</p>
+</EnvironmentView>
+
+<EnvironmentView Exclude="Production">
+    <p>Rendered timestamp (hidden in Production): @DateTime.Now</p>
+</EnvironmentView>
+
+<EnvironmentView Include="Production">
+    <p>This only shows in Production - you won't see it while running locally in Development.</p>
+</EnvironmentView>

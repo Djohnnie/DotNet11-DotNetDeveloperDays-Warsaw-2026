@@ -1,0 +1,15 @@
+﻿<Window x:Class="Wpf11.DesktopWindowManagerCrashGuard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Wpf11.DesktopWindowManagerCrashGuard"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="300" Width="520">
+    <StackPanel Margin="20">
+        <TextBlock FontSize="18" FontWeight="Bold" Text="Desktop Window Manager (DWM) crash guard" Margin="0,0,0,10" TextWrapping="Wrap" />
+        <TextBlock TextWrapping="Wrap" Text="Starting with .NET 11 Preview 2, WPF guards against crashes caused by failures in the Desktop Window Manager (dwm.exe) - for example when DWM itself restarts or briefly stops responding while a WPF app is composing a frame." />
+        <TextBlock Margin="0,10,0,0" TextWrapping="Wrap" Text="This is a runtime resilience improvement with no opt-in/opt-out API: there is nothing to call or configure. Every WPF app targeting net11.0-windows gets it automatically, which is why this window has no buttons - it exists to explain the feature, not to toggle it." />
+        <TextBlock Margin="0,10,0,0" FontStyle="Italic" Text="See MainWindow.xaml.cs for details and the source release note." />
+    </StackPanel>
+</Window>

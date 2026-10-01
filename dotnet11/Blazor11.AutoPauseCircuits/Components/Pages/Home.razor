@@ -1,0 +1,28 @@
+@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Auto-pause Blazor circuits</h1>
+
+<p>
+    This app enables <code>Microsoft.AspNetCore.Components.Server.AutoPause</code> (wired up in
+    <code>Program.cs</code> via <code>WithBrowserOptions</code>). Switch to another browser tab
+    for more than 30 seconds (configured below as <code>HiddenDelay</code>; the framework default
+    is 2 minutes) and the circuit backing this page pauses automatically, releasing its SignalR
+    connection and server-side memory. Switch back and it resumes - reconnecting and restoring
+    state - without you having to write any pause/resume code yourself.
+</p>
+
+<p>
+    Component render count so far: <strong>@renderCount</strong>
+    (increments each time this component re-renders, e.g. on reconnect after a resume).
+</p>
+
+@code {
+    private int renderCount;
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        renderCount++;
+    }
+}
