@@ -22,5 +22,31 @@ editing and export details.
 ### 3. Repository
 ![Repository QR code](_slides/slide-03.svg)
 
-The slide theme uses the supplied .NET DeveloperDays logo, speaker photo,
-QR code, and Open Sans / Raleway fonts in `_resources`.
+## Feature overviews
+
+### 4. C# 15
+![C# 15 feature overview](_slides/slide-04.svg)
+
+### 5. .NET libraries and runtime
+![.NET libraries and runtime feature overview](_slides/slide-05.svg)
+
+### 6. SDK and build
+![SDK and build feature overview](_slides/slide-06.svg)
+
+### 7. ASP.NET Core and Blazor
+![ASP.NET Core and Blazor feature overview](_slides/slide-07.svg)
+
+### 8. Entity Framework Core 11
+![Entity Framework Core 11 feature overview](_slides/slide-08.svg)
+
+### 9. Windows Forms
+![Windows Forms feature overview](_slides/slide-09.svg)
+
+### 10. WPF
+![WPF feature overview](_slides/slide-10.svg)
+
+### 11. Thank you
+![Thank you slide with repository QR code](_slides/slide-11.svg)
+
+The slide theme uses the supplied .NET DeveloperDays logo, Zure icon, speaker
+photo, QR code, and Open Sans / Raleway fonts in `_resources`.

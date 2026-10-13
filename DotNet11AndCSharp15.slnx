@@ -1,0 +1,166 @@
+<Solution>
+  <Folder Name="/1. C# 15/" />
+  <Folder Name="/1. C# 15/01. Collection expression arguments/">
+    <Project Path="CSharp15.CollectionExpressionArguments/CSharp15.CollectionExpressionArguments.csproj" />
+  </Folder>
+  <Folder Name="/1. C# 15/02. Union types/">
+    <Project Path="CSharp15.DiscriminatedUnions/CSharp15.DiscriminatedUnions.csproj" />
+  </Folder>
+  <Folder Name="/1. C# 15/03. Closed hierarchies/">
+    <Project Path="CSharp15.ClosedHierarchies/CSharp15.ClosedHierarchies.csproj" />
+  </Folder>
+  <Folder Name="/1. C# 15/04. Extension indexers/">
+    <Project Path="CSharp15.ExtensionIndexers/CSharp15.ExtensionIndexers.csproj" />
+  </Folder>
+  <Folder Name="/1. C# 15/05. Labeled break and continue/">
+    <Project Path="CSharp15.LabeledBreakAndContinue/CSharp15.LabeledBreakAndContinue.csproj" />
+  </Folder>
+  <Folder Name="/1. C# 15/06. Memory-safety updates/">
+    <Project Path="CSharp15.UnsafeEvolution/CSharp15.UnsafeEvolution.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/" />
+  <Folder Name="/2. .NET libraries and runtime/07. Run processes and capture output/">
+    <Project Path="DotNet11.ProcessRunAndCapture/DotNet11.ProcessRunAndCapture.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/08. Control process lifetime and inspect exit status/">
+    <Project Path="DotNet11.ProcessEnhancements/DotNet11.ProcessEnhancements.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/09. Stream memory and text without copying/">
+    <Project Path="DotNet11.StreamAdapters/DotNet11.StreamAdapters.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/10. Compress and decompress spans/">
+    <Project Path="DotNet11.SpanBasedCompression/DotNet11.SpanBasedCompression.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/11. Protect ZIP entries with passwords/">
+    <Project Path="DotNet11.ZipArchivePassword/DotNet11.ZipArchivePassword.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/12. Add Zstandard compression/">
+    <Project Path="DotNet11.ZstandardCompression/DotNet11.ZstandardCompression.csproj" />
+    <Project Path="AspNet11.ZstandardHttpCompression/AspNet11.ZstandardHttpCompression.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/13. Validate ZIP checksums when reading/">
+    <Project Path="DotNet11.ZipCrc32Validation/DotNet11.ZipCrc32Validation.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/14. Create hard links/">
+    <Project Path="DotNet11.HardLinkCreation/DotNet11.HardLinkCreation.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/15. Serialize asynchronous streams as JSON Lines/">
+    <Project Path="DotNet11.JsonLinesSerialization/DotNet11.JsonLinesSerialization.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/16. Expand JSON contracts and numeric support/">
+    <Project Path="DotNet11.JsonNumericContracts/DotNet11.JsonNumericContracts.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/17. Resolve DNS record types/">
+    <Project Path="DotNet11.DnsRecordResolution/DotNet11.DnsRecordResolution.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/18. Work with Unicode scalars and validate text/">
+    <Project Path="DotNet11.RuneSupport/DotNet11.RuneSupport.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/19. Use ordinal casing and floating-point hex/">
+    <Project Path="DotNet11.OrdinalCasing/DotNet11.OrdinalCasing.csproj" />
+    <Project Path="DotNet11.FloatingPointHexFormatting/DotNet11.FloatingPointHexFormatting.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/20. Construct bit arrays from spans/">
+    <Project Path="DotNet11.BitArrayFromSpans/DotNet11.BitArrayFromSpans.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/21. Build frozen dictionaries from collection expressions/">
+    <Project Path="DotNet11.FrozenDictionaryCollectionExpressions/DotNet11.FrozenDictionaryCollectionExpressions.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/22. Add generic numeric APIs/">
+    <Project Path="DotNet11.GenericRandom/DotNet11.GenericRandom.csproj" />
+    <Project Path="DotNet11.GenericComplex/DotNet11.GenericComplex.csproj" />
+    <Project Path="DotNet11.BFloat16/DotNet11.BFloat16.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/23. Parse numbers from delimited input/">
+    <Project Path="DotNet11.PartialNumericParsing/DotNet11.PartialNumericParsing.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/24. Join both sides of two LINQ sequences/">
+    <Project Path="DotNet11.LinqFullOuterJoin/DotNet11.LinqFullOuterJoin.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/25. Validate data asynchronously/">
+    <Project Path="DotNet11.AsyncDataAnnotations/DotNet11.AsyncDataAnnotations.csproj" />
+  </Folder>
+  <Folder Name="/2. .NET libraries and runtime/26. Use newer cryptography and faster Half operations/">
+    <Project Path="DotNet11.CryptographyKeyAgreement/DotNet11.CryptographyKeyAgreement.csproj" />
+  </Folder>
+  <Folder Name="/3. SDK and build/" />
+  <Folder Name="/3. SDK and build/27. Run the CLI and file-based apps more efficiently/">
+    <File Path="FileApps/greeter.cs" />
+    <File Path="FileApps/Formatting.cs" />
+    <File Path="FileApps/include-dll.cs" />
+    <Project Path="FileApps/_HelperLib/FileApps.Helper.csproj" />
+  </Folder>
+  <Folder Name="/3. SDK and build/28. Pass environment variables and use improved watch workflows/">
+    <File Path="FileApps/env-vars.cs" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/" />
+  <Folder Name="/4. ASP.NET Core and Blazor/29. Protect endpoints from cross-origin requests by default/">
+    <Project Path="AspNet11.AutomaticCsrfProtection/AspNet11.AutomaticCsrfProtection.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/30. Use async validation in Minimal APIs/">
+    <Project Path="AspNet11.AsyncValidationMinimalApis/AspNet11.AsyncValidationMinimalApis.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/31. Short-circuit selected endpoints/">
+    <Project Path="AspNet11.ShortCircuitEndpointsAttribute/AspNet11.ShortCircuitEndpointsAttribute.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/32. Describe server-sent events in OpenAPI/">
+    <Project Path="AspNet11.OpenApiServerSentEvents/AspNet11.OpenApiServerSentEvents.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/33. Navigate relatively and carry temporary data in Blazor/">
+    <Project Path="Blazor11.SupplyParameterFromTempData/Blazor11.SupplyParameterFromTempData.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/34. Pause inactive Blazor Server circuits/">
+    <Project Path="Blazor11.AutoPauseCircuits/Blazor11.AutoPauseCircuits.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/35. Cache server-rendered component subtrees/">
+    <Project Path="Blazor11.CacheView/Blazor11.CacheView.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/36. Improve QuickGrid interaction/">
+    <Project Path="Blazor11.QuickGridOnRowClick/Blazor11.QuickGridOnRowClick.csproj" />
+  </Folder>
+  <Folder Name="/4. ASP.NET Core and Blazor/37. Add environment and metadata-aware UI/">
+    <Project Path="Blazor11.EnvironmentView/Blazor11.EnvironmentView.csproj" />
+    <Project Path="Blazor11.LabelAndDisplayNameComponents/Blazor11.LabelAndDisplayNameComponents.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/" />
+  <Folder Name="/5. Entity Framework Core 11/38. Use complex types with more mappings/">
+    <Project Path="EF11.ComplexTypes/EF11.ComplexTypes.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/39. Translate more LINQ and generate leaner SQL/">
+    <Project Path="EF11.LinqTranslations/EF11.LinqTranslations.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/40. Query JSON and create JSON indexes/">
+    <Project Path="EF11.SqlServerJsonContains/EF11.SqlServerJsonContains.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/41. Search SQL Server with vectors and full text/">
+    <Project Path="EF11.SqlServerVectorIndexes/EF11.SqlServerVectorIndexes.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/42. Simplify migration workflows/">
+    <Project Path="EF11.CreateAndApplyMigrationsOneStep/EF11.CreateAndApplyMigrationsOneStep.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/43. Inspect tracked entries without extra change detection/">
+    <Project Path="EF11.ChangeTrackerGetEntriesForState/EF11.ChangeTrackerGetEntriesForState.csproj" />
+  </Folder>
+  <Folder Name="/5. Entity Framework Core 11/44. Warn when async queries run synchronously/">
+    <Project Path="EF11.Ef1004AsyncWarning/EF11.Ef1004AsyncWarning.csproj" />
+  </Folder>
+  <Folder Name="/6. Windows Forms/" />
+  <Folder Name="/6. Windows Forms/45. Opt into modern visual styles and avoid startup flashes/">
+    <Project Path="WinForms11.OptInVisualStyles/WinForms11.OptInVisualStyles.csproj" />
+    <Project Path="WinForms11.DeferredFormRevealing/WinForms11.DeferredFormRevealing.csproj" />
+  </Folder>
+  <Folder Name="/6. Windows Forms/46. Render check boxes as toggle switches/">
+    <Project Path="WinForms11.ToggleSwitchAppearance/WinForms11.ToggleSwitchAppearance.csproj" />
+  </Folder>
+  <Folder Name="/6. Windows Forms/47. Suspend painting during bulk updates/">
+    <Project Path="WinForms11.SuspendPaintingBulkMutations/WinForms11.SuspendPaintingBulkMutations.csproj" />
+  </Folder>
+  <Folder Name="/7. WPF/" />
+  <Folder Name="/7. WPF/48. Reliability and compatibility fixes/">
+    <Project Path="Wpf11.DesktopWindowManagerCrashGuard/Wpf11.DesktopWindowManagerCrashGuard.csproj" />
+  </Folder>
+  <Folder Name="/Solution Items/">
+    <File Path="SOURCES.md" />
+    <File Path="sources.txt" />
+  </Folder>
+</Solution>

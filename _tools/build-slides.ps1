@@ -19,6 +19,14 @@ $heading = DataUri (Join-Path $resources 'fonts\Raleway-Bold.ttf') 'font/ttf'
 $logo = DataUri (Join-Path $resources 'developerdays-logo.png') 'image/png'
 $speakerPhoto = DataUri (Join-Path $resources 'speaker-photo.jpg') 'image/jpeg'
 $qrCode = DataUri (Join-Path $resources 'qrcode.svg') 'image/svg+xml'
+$slideThree = [IO.File]::ReadAllText((Join-Path $slides 'slide-03.svg'))
+$qrMatch = [regex]::Match($slideThree, "<a href='[^']+'><image [^>]*href='(data:image/svg\+xml;base64,[^']+)'")
+if (-not $qrMatch.Success) {
+    throw 'Could not find the repository QR code in slide-03.svg.'
+}
+$repositoryQr = $qrMatch.Groups[1].Value
+$zureSvg = [IO.File]::ReadAllText((Join-Path $resources 'zure.svg')).Replace('currentColor', '#ffffff')
+$zureLogo = "data:image/svg+xml;base64,$([Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($zureSvg)))"
 $repoUrl = 'https://github.com/Djohnnie/DotNet11-DotNetDeveloperDays-Warsaw-2026'
 $defs = @"
 <defs>
@@ -65,6 +73,7 @@ function SaveSlide([string]$name, [string]$title, [string]$description, [string]
             '<path d="M100 985H1820" stroke="#444444"/>'
             "<a href='$repoUrl'>$(Text 100 1030 'github.com/Djohnnie/DotNet11-DotNetDeveloperDays-Warsaw-2026' 24)</a>"
             "<text x='1820' y='1032' text-anchor='end' font-size='24' fill='#ffffff'>$number</text>"
+            "<image x='1526' y='880' width='294' height='75' href='$zureLogo'/>"
         ) -join "`n"
     }
     $svg = @"
@@ -115,4 +124,106 @@ $body = @(
 ) -join "`n"
 SaveSlide 'slide-03.svg' 'Explore the code and examples' 'QR code linking to the .NET 11 and C# 15 examples repository.' $body '03' 'FOLLOW ALONG'
 
-Write-Host "Built up to 3 opening slides in $slides"
+function SaveFeatureSlide([int]$number, [string]$title, [string[]]$features) {
+    $columnCount = if ($features.Count -gt 6) { 2 } else { 1 }
+    $rowCount = [Math]::Ceiling($features.Count / [double]$columnCount)
+    $rowGap = if ($rowCount -gt 8) { 48 } elseif ($rowCount -gt 6) { 58 } else { 70 }
+    $bodyParts = [Collections.Generic.List[string]]::new()
+    $bodyParts.Add((Text 100 245 $title 68 'heading'))
+    $bodyParts.Add('<rect x="100" y="280" width="180" height="8" fill="url(#accent)"/>')
+
+    for ($i = 0; $i -lt $features.Count; $i++) {
+        $column = if ($columnCount -eq 2) { $i % 2 } else { 0 }
+        $row = if ($columnCount -eq 2) { [Math]::Floor($i / 2) } else { $i }
+        $x = if ($column -eq 0) { 100 } else { 990 }
+        $y = 350 + $row * $rowGap
+        $bodyParts.Add("<circle cx='$($x + 5)' cy='$($y - 9)' r='6' fill='#ff6a3f'/>")
+        $bodyParts.Add((Text ($x + 26) $y $features[$i] 26))
+    }
+
+    $body = $bodyParts -join "`n"
+    $slideNumber = $number.ToString('00')
+    SaveSlide "slide-$slideNumber.svg" $title "Overview of .NET 11 and C# 15 features: $title." $body $slideNumber 'FEATURE OVERVIEW'
+}
+
+SaveFeatureSlide 4 'C# 15' @(
+    'Collection expression arguments'
+    'Union types'
+    'Closed hierarchies'
+    'Extension indexers'
+    'Labeled break and continue'
+    'Memory-safety updates'
+)
+
+SaveFeatureSlide 5 '.NET libraries and runtime' @(
+    'Run processes and capture output'
+    'Control process lifetime and inspect exit status'
+    'Stream memory and text without copying'
+    'Compress and decompress spans'
+    'Protect ZIP entries with passwords'
+    'Add Zstandard compression'
+    'Validate ZIP checksums when reading'
+    'Create hard links'
+    'Serialize asynchronous streams as JSON Lines'
+    'Expand JSON contracts and numeric support'
+    'Resolve DNS record types'
+    'Work with Unicode scalars and validate text'
+    'Use ordinal casing and floating-point hex'
+    'Construct bit arrays from spans'
+    'Build frozen dictionaries from collection expressions'
+    'Add generic numeric APIs'
+    'Parse numbers from delimited input'
+    'Join both sides of two LINQ sequences'
+    'Validate data asynchronously'
+    'Use newer cryptography and faster Half operations'
+    'Runtime-managed async (preview)'
+)
+
+SaveFeatureSlide 6 'SDK and build' @(
+    'Run the CLI and file-based apps more efficiently'
+    'Pass environment variables and use improved watch workflows'
+    'Improve test runs'
+    'Publish reproducible containers'
+    'Add tar support and expose MSBuild globs'
+)
+
+SaveFeatureSlide 7 'ASP.NET Core and Blazor' @(
+    'Protect endpoints from cross-origin requests by default'
+    'Use async validation in Minimal APIs'
+    'Short-circuit selected endpoints'
+    'Describe server-sent events in OpenAPI'
+    'Navigate relatively and carry temporary data in Blazor'
+    'Pause inactive Blazor Server circuits'
+    'Cache server-rendered component subtrees'
+    'Improve QuickGrid interaction'
+    'Add environment and metadata-aware UI'
+)
+
+SaveFeatureSlide 8 'Entity Framework Core 11' @(
+    'Use complex types with more mappings'
+    'Translate more LINQ and generate leaner SQL'
+    'Query JSON and create JSON indexes'
+    'Search SQL Server with vectors and full text'
+    'Simplify migration workflows'
+    'Inspect tracked entries without extra change detection'
+    'Warn when async queries run synchronously'
+)
+
+SaveFeatureSlide 9 'Windows Forms' @(
+    'Opt into modern visual styles and avoid startup flashes'
+    'Render check boxes as toggle switches'
+    'Suspend painting during bulk updates'
+)
+
+SaveFeatureSlide 10 'WPF' @(
+    'Reliability and compatibility fixes'
+)
+
+ $body = @(
+    (Text 100 245 'Any questions?' 72 'heading')
+    (Text 100 315 'Continue exploring .NET 11 and C# 15' 30)
+     "<a href='$repoUrl'><image x='690' y='340' width='540' height='540' href='$repositoryQr'/></a>"
+) -join "`n"
+SaveSlide 'slide-11.svg' 'Thank you' 'Thank you for joining this overview of .NET 11 and C# 15. Scan the QR code to open the repository.' $body '11' 'THANK YOU'
+
+Write-Host "Built selected slides in $slides"

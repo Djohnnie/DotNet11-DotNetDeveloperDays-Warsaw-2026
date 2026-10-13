@@ -1,0 +1,59 @@
+@page "/"
+@using Microsoft.AspNetCore.Components
+
+@* .NET 11 Blazor - Cache server-rendered component subtrees.
+   Introduced: Preview 7.
+
+   CacheView caches the rendered output of a server-side rendered subtree. On a cache hit the
+   child components are not instantiated or rendered again - the previously captured HTML is
+   replayed, which cuts CPU and allocations for expensive server-rendered fragments.
+
+   It supports absolute (ExpiresAfter, ExpiresOn) and sliding (ExpiresSliding) expiration and
+   vary-by dimensions for query string, route, header, cookie, user, culture and an arbitrary
+   VaryBy string. CacheKey disambiguates multiple boundaries under the same parent. Caching is
+   skipped for non-GET requests, when Enabled="false" and inside streaming SSR.
+
+   Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/aspnetcore.md#cache-blazor-ssr-output-with-cacheview *@
+
+<PageTitle>CacheView</PageTitle>
+
+<h1>CacheView</h1>
+
+<p>
+    Page rendered at <strong>@DateTime.Now.ToString("HH:mm:ss.fff")</strong>.
+    Reload the page: the timestamp above changes every time, the cached blocks below do not.
+</p>
+
+<p>
+    Try <a href="/?category=Tools">?category=Tools</a> and
+    <a href="/?category=Toys">?category=Toys</a> to see the vary-by-query dimension create
+    separate cache entries.
+</p>
+
+<h2>Cached for 1 minute, varying by the <code>category</code> query string</h2>
+
+<CacheView CacheKey="catalog"
+           ExpiresAfter="TimeSpan.FromMinutes(1)"
+           VaryByQuery="category"
+           VaryByCulture="true">
+    <ExpensiveProductSummary Category="@CategoryOrDefault" />
+</CacheView>
+
+<h2>Sliding expiration</h2>
+
+<CacheView CacheKey="featured" ExpiresSliding="TimeSpan.FromSeconds(30)">
+    <ExpensiveProductSummary Category="Featured" />
+</CacheView>
+
+<h2>Caching disabled, for comparison</h2>
+
+<CacheView CacheKey="live" Enabled="false">
+    <ExpensiveProductSummary Category="Live" />
+</CacheView>
+
+@code {
+    [SupplyParameterFromQuery]
+    private string? Category { get; set; }
+
+    private string CategoryOrDefault => string.IsNullOrWhiteSpace(Category) ? "All" : Category;
+}

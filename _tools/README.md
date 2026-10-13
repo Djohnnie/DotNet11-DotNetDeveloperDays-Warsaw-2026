@@ -1,8 +1,9 @@
 # Presentation tools
 
-The opening three slides use numbered SVG sources in `_slides` and can be
-exported as a full-bleed image-based PowerPoint. The tools use PowerShell and
-Microsoft Edge, with no Python, Node.js, or package installation required.
+The numbered SVG sources in `_slides` include the opening slides and feature
+overviews, and can be exported as a full-bleed image-based PowerPoint. The
+tools use PowerShell and Microsoft Edge, with no Python, Node.js, or package
+installation required.
 
 ## Build the SVG sources
 
@@ -19,16 +20,19 @@ To regenerate only selected slides without touching the others:
 ```
 
 Edit the content and layouts in `build-slides.ps1` and rerun it. It generates
-`slide-01.svg` through `slide-03.svg`, embedding the fonts, conference logo,
-speaker photo, and repository QR code from `_resources`.
+`slide-01.svg` through `slide-11.svg`, embedding the fonts, conference logo,
+Zure icon, speaker photo, and repository QR code from `_resources`. Use
+`-OnlySlides` with slide numbers to regenerate selected slides without
+touching the others.
 
 The slides have a 3840 x 2160 canvas and a 1920 x 1080 coordinate system. Keep
 important content within the 100-unit horizontal margins and above the footer
 at y=985. Use Raleway 700 for headings and Open Sans for body text. XML-escape
 text when editing the generator.
 
-Slides 2 and 3 include the repository link and slide number in the footer; the
-title slide has no footer.
+Slides 2 through 11 include the repository link, Zure icon, and slide number
+in the footer; the title slide has no footer. Slides 4 through 10 list the
+feature titles from `dotnet11\SOURCES.md` without feature details.
 
 ## Export PowerPoint
 

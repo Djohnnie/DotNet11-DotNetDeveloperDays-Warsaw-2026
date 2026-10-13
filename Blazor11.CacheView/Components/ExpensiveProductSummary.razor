@@ -1,0 +1,44 @@
+@* A deliberately slow, server-rendered fragment. The render counter proves that on a
+   CacheView hit this component is not instantiated or rendered again - the previously
+   captured HTML is replayed instead. *@
+
+<div class="card mb-3">
+    <div class="card-body">
+        <h5 class="card-title">@Category</h5>
+        <p class="card-text">
+            Rendered at <strong>@renderedAt.ToString("HH:mm:ss.fff")</strong>
+            (render #@renderCount for this process).
+        </p>
+        <ul>
+            @foreach (var product in products)
+            {
+                <li>@product</li>
+            }
+        </ul>
+    </div>
+</div>
+
+@code {
+    private static int renderCount;
+
+    private DateTime renderedAt;
+    private string[] products = [];
+
+    [Parameter]
+    public string Category { get; set; } = "All";
+
+    protected override void OnParametersSet()
+    {
+        // Pretend this is an expensive query or an upstream API call.
+        Thread.Sleep(250);
+
+        renderCount = Interlocked.Increment(ref renderCount);
+        renderedAt = DateTime.Now;
+        products =
+        [
+            $"{Category} widget",
+            $"{Category} gadget",
+            $"{Category} gizmo",
+        ];
+    }
+}
