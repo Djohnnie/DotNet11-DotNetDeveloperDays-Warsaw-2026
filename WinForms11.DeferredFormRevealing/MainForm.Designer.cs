@@ -17,10 +17,16 @@ partial class MainForm
 
     private void InitializeComponent()
     {
-        components = new System.ComponentModel.Container();
+        SuspendLayout();
+        // 
+        // MainForm
+        // 
+        AutoScaleDimensions = new SizeF(13F, 32F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(400, 200);
+        ClientSize = new Size(1077, 612);
+        Name = "MainForm";
         Text = "MainForm";
+        ResumeLayout(false);
     }
 
     #endregion

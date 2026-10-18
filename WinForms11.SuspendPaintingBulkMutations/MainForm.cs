@@ -6,6 +6,17 @@ public partial class MainForm : Form
     {
         InitializeComponent();
 
+        for (var i = 1; i <= 8; i++)
+        {
+            labelsPanel.Controls.Add(new Label
+            {
+                Text = $"Item {i}",
+                AutoSize = true,
+                Left = 10,
+                Top = 10 + (i - 1) * 20
+            });
+        }
+
         rearrangeButton.Click += (_, _) => RearrangeLabels();
     }
 

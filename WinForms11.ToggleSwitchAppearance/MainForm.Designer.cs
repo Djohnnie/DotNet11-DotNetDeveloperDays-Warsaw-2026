@@ -22,21 +22,37 @@ partial class MainForm
     {
         normalCheckBox = new CheckBox();
         toggleSwitchCheckBox = new CheckBox();
-
-        normalCheckBox.Text = "Normal appearance";
-        normalCheckBox.Location = new Point(20, 20);
+        SuspendLayout();
+        // 
+        // normalCheckBox
+        // 
         normalCheckBox.AutoSize = true;
-
-        toggleSwitchCheckBox.Text = "ToggleSwitch appearance";
-        toggleSwitchCheckBox.Location = new Point(20, 60);
+        normalCheckBox.Location = new Point(20, 37);
+        normalCheckBox.Name = "normalCheckBox";
+        normalCheckBox.Size = new Size(255, 36);
+        normalCheckBox.TabIndex = 0;
+        normalCheckBox.Text = "Normal appearance";
+        // 
+        // toggleSwitchCheckBox
+        // 
         toggleSwitchCheckBox.AutoSize = true;
-
-        components = new System.ComponentModel.Container();
+        toggleSwitchCheckBox.Location = new Point(20, 96);
+        toggleSwitchCheckBox.Name = "toggleSwitchCheckBox";
+        toggleSwitchCheckBox.Size = new Size(317, 36);
+        toggleSwitchCheckBox.TabIndex = 1;
+        toggleSwitchCheckBox.Text = "ToggleSwitch appearance";
+        // 
+        // MainForm
+        // 
+        AutoScaleDimensions = new SizeF(13F, 32F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(280, 120);
+        ClientSize = new Size(887, 231);
         Controls.Add(normalCheckBox);
         Controls.Add(toggleSwitchCheckBox);
+        Name = "MainForm";
         Text = "MainForm";
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion
