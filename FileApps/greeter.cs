@@ -1,3 +1,4 @@
+#!/usr/bin/env dotnet
 // Beginning with .NET 11, file-based apps (dotnet run app.cs) can be split across multiple files.
 // The #:include directive pulls in another C# source file from the same file-based app,
 // so shared helpers no longer force you to graduate to a full csproj-based project.

@@ -1,5 +1,7 @@
+using Blazor11.AutoPauseCircuits;
 using Blazor11.AutoPauseCircuits.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.Circuits;
 
 // .NET 11 Preview 7 adds Microsoft.AspNetCore.Components.Server.AutoPause, which automatically
 // pauses a Blazor Server circuit when the browser tab is hidden - freeing the server resources
@@ -13,6 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped<CircuitDiagnostics>();
+builder.Services.AddScoped<CircuitHandler>(services => services.GetRequiredService<CircuitDiagnostics>());
 
 var app = builder.Build();
 
