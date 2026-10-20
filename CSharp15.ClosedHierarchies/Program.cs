@@ -1,12 +1,18 @@
 // C# 15 - Closed hierarchies.
-// Introduced: .NET 11 Preview 7 (C# 15 preview language version).
+// Introduced: .NET 11 Preview 7 (C# 15 preview language
+// version).
 //
-// The `closed` modifier tells the compiler that every derived type of an abstract
-// class (or every implementation of an interface) lives in the same file/assembly.
-// Because the compiler knows the full set of subtypes, a `switch` over a closed
-// hierarchy is exhaustive without a discard arm, and forgetting a case is a warning.
+// The `closed` modifier tells the compiler that every derived
+// type of an abstract
+// class (or every implementation of an interface) lives in the
+// same file/assembly.
+// Because the compiler knows the full set of subtypes, a
+// `switch` over a closed
+// hierarchy is exhaustive without a discard arm, and forgetting
+// a case is a warning.
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/csharp.md
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/csharp.md
 
 using System.Globalization;
 
@@ -25,7 +31,8 @@ foreach (Shape shape in shapes)
 Console.WriteLine();
 Console.WriteLine("Every arm is covered, so no default/discard case is required.");
 
-// No `_` arm: the compiler proves exhaustiveness from the closed hierarchy.
+// No `_` arm: the compiler proves exhaustiveness from the
+// closed hierarchy.
 static double Area(Shape shape) => shape switch
 {
     Circle c => Math.PI * c.Radius * c.Radius,
@@ -46,8 +53,10 @@ static double HeronArea(Triangle t)
     return Math.Sqrt(s * (s - t.A) * (s - t.B) * (s - t.C));
 }
 
-// `closed` restricts derivation to this file, which makes the switches above exhaustive.
-// `closed` already implies abstract, so the modifier must not be repeated.
+// `closed` restricts derivation to this file, which makes the
+// switches above exhaustive.
+// `closed` already implies abstract, so the modifier must not
+// be repeated.
 internal closed record Shape;
 
 internal sealed record Circle(double Radius) : Shape;

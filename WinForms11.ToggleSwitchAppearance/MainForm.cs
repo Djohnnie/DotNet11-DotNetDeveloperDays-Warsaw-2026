@@ -6,8 +6,10 @@ public partial class MainForm : Form
     {
         InitializeComponent();
 
-        // CheckBox and RadioButton gain a new Appearance value: ToggleSwitch.
-        // Checked state, CheckedChanged, and data binding all keep working exactly as before -
+        // CheckBox and RadioButton gain a new Appearance value:
+        // ToggleSwitch.
+        // Checked state, CheckedChanged, and data binding all
+        // keep working exactly as before -
         // only the rendering changes.
         toggleSwitchCheckBox.Appearance = Appearance.ToggleSwitch;
         toggleSwitchCheckBox.CheckedChanged += (_, _) =>

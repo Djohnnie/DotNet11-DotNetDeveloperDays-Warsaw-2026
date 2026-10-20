@@ -1,6 +1,10 @@
-@* A deliberately slow, server-rendered fragment. The render counter proves that on a
-   CacheView hit this component is not instantiated or rendered again - the previously
-   captured HTML is replayed instead. *@
+@*
+   A deliberately slow, server-rendered fragment. The render
+   counter proves that on a
+   CacheView hit this component is not instantiated or rendered
+   again - the previously
+   captured HTML is replayed instead.
+*@
 
 <div class="card mb-3">
     <div class="card-body">
@@ -29,7 +33,8 @@
 
     protected override void OnParametersSet()
     {
-        // Pretend this is an expensive query or an upstream API call.
+        // Pretend this is an expensive query or an upstream API
+        // call.
         Thread.Sleep(250);
 
         renderCount = Interlocked.Increment(ref renderCount);

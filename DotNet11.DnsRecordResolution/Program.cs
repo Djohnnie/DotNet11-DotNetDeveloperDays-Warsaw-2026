@@ -1,13 +1,20 @@
 // .NET 11 Libraries - Resolve DNS record types.
-// Introduced: Preview 7 (Windows implementation); RC 1 (Linux implementation).
+// Introduced: Preview 7 (Windows implementation); RC 1 (Linux
+// implementation).
 //
-// System.Net.Dns gains typed record resolution beyond the classic IPHostEntry lookups.
-// Dns.ResolveAddresses / ResolveSrv / ResolveMx / ResolveTxt / ResolveCName / ResolvePtr /
-// ResolveNs (and their *Async variants) return a DnsResult<T> envelope carrying the records,
-// a DnsResponseCode and a NegativeCacheTtl. The DnsResolver type adds instance-based
-// resolution driven by DnsResolverOptions, including a custom DNS server list.
+// System.Net.Dns gains typed record resolution beyond the
+// classic IPHostEntry lookups.
+// Dns.ResolveAddresses / ResolveSrv / ResolveMx / ResolveTxt /
+// ResolveCName / ResolvePtr /
+// ResolveNs (and their *Async variants) return a DnsResult<T>
+// envelope carrying the records,
+// a DnsResponseCode and a NegativeCacheTtl. The DnsResolver
+// type adds instance-based
+// resolution driven by DnsResolverOptions, including a custom
+// DNS server list.
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#dns-record-resolution-apis
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#dns-record-resolution-apis
 
 using System.Net;
 
@@ -68,8 +75,10 @@ static async Task ShowSrvAsync(string name)
     {
         DnsResult<SrvRecord> result = await Dns.ResolveSrvAsync(name);
 
-        // A name with no SRV records is NOT an error: NoError + zero records, plus a
-        // NegativeCacheTtl telling you how long the negative answer may be cached.
+        // A name with no SRV records is NOT an error: NoError +
+        // zero records, plus a
+        // NegativeCacheTtl telling you how long the negative
+        // answer may be cached.
         Console.WriteLine($"  negative cache ttl: {result.NegativeCacheTtl}");
         Report(result, r => $"{r.Target}:{r.Port} pri={r.Priority} wt={r.Weight}");
     });

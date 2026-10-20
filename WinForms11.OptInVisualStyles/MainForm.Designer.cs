@@ -15,7 +15,8 @@ partial class MainForm
     /// <summary>
     ///  Clean up any resources being used.
     /// </summary>
-    /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+    /// <param name="disposing">true if managed resources should
+    /// be disposed; otherwise, false.</param>
     protected override void Dispose(bool disposing)
     {
         if (disposing && (components != null))
@@ -37,31 +38,55 @@ partial class MainForm
         classicButton = new Button();
         sampleCheckBox = new CheckBox();
         sampleGroupBox = new GroupBox();
-
-        modernButton.Text = "Net11 rendering";
+        SuspendLayout();
+        // 
+        // modernButton
+        // 
         modernButton.Location = new Point(20, 20);
-        modernButton.Size = new Size(160, 32);
-
+        modernButton.Name = "modernButton";
+        modernButton.Size = new Size(355, 62);
+        modernButton.TabIndex = 0;
+        modernButton.Text = "Net11 rendering";
+        // 
+        // classicButton
+        // 
+        classicButton.Location = new Point(20, 88);
+        classicButton.Name = "classicButton";
+        classicButton.Size = new Size(355, 62);
+        classicButton.TabIndex = 1;
         classicButton.Text = "Classic rendering";
-        classicButton.Location = new Point(20, 60);
-        classicButton.Size = new Size(160, 32);
-
-        sampleCheckBox.Text = "Sample check box";
-        sampleCheckBox.Location = new Point(20, 100);
+        // 
+        // sampleCheckBox
+        // 
         sampleCheckBox.AutoSize = true;
-
+        sampleCheckBox.Location = new Point(20, 211);
+        sampleCheckBox.Name = "sampleCheckBox";
+        sampleCheckBox.Size = new Size(239, 36);
+        sampleCheckBox.TabIndex = 2;
+        sampleCheckBox.Text = "Sample check box";
+        // 
+        // sampleGroupBox
+        // 
+        sampleGroupBox.Location = new Point(20, 323);
+        sampleGroupBox.Name = "sampleGroupBox";
+        sampleGroupBox.Size = new Size(489, 253);
+        sampleGroupBox.TabIndex = 3;
+        sampleGroupBox.TabStop = false;
         sampleGroupBox.Text = "Sample group box";
-        sampleGroupBox.Location = new Point(20, 130);
-        sampleGroupBox.Size = new Size(200, 60);
-
-        components = new System.ComponentModel.Container();
+        // 
+        // MainForm
+        // 
+        AutoScaleDimensions = new SizeF(13F, 32F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(320, 220);
+        ClientSize = new Size(577, 634);
         Controls.Add(modernButton);
         Controls.Add(classicButton);
         Controls.Add(sampleCheckBox);
         Controls.Add(sampleGroupBox);
+        Name = "MainForm";
         Text = "MainForm";
+        ResumeLayout(false);
+        PerformLayout();
     }
 
     #endregion

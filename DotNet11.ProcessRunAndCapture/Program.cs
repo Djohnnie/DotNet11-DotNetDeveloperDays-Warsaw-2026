@@ -1,13 +1,19 @@
 // .NET 11 Libraries - Run processes and capture output.
 // Introduced: Preview 4.
 //
-// `Process.Run`, `Process.RunAsync`, `Process.RunAndCaptureText` and
-// `Process.RunAndCaptureTextAsync` are one-shot APIs for launching a child process and
-// getting its result, without manually wiring up OutputDataReceived/ErrorDataReceived.
-// `Process.ReadAllTextAsync` / `ReadAllLinesAsync` give a single-call read of child output,
-// and `ProcessOutputLine` lets callers tell stdout from stderr without string parsing.
+// `Process.Run`, `Process.RunAsync`,
+// `Process.RunAndCaptureText` and
+// `Process.RunAndCaptureTextAsync` are one-shot APIs for
+// launching a child process and
+// getting its result, without manually wiring up
+// OutputDataReceived/ErrorDataReceived.
+// `Process.ReadAllTextAsync` / `ReadAllLinesAsync` give a
+// single-call read of child output,
+// and `ProcessOutputLine` lets callers tell stdout from stderr
+// without string parsing.
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview4/libraries.md
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview4/libraries.md
 
 using System.Diagnostics;
 

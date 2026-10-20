@@ -1,5 +1,7 @@
-// Beginning with .NET 11, "dotnet run" accepts an -e/--environment-variable option
-// to pass environment variables straight from the command line, without creating a
+// Beginning with .NET 11, "dotnet run" accepts an
+// -e/--environment-variable option
+// to pass environment variables straight from the command line,
+// without creating a
 // launchSettings.json profile just to test a value.
 //
 // Run it with:

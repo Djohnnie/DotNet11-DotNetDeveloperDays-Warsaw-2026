@@ -1,13 +1,20 @@
 using System.Text;
 
-// A Rune represents a single Unicode scalar value. Characters outside the Basic Multilingual
-// Plane (most emoji, some CJK ideographs, ...) don't fit in one System.Char - they're encoded
-// as a surrogate *pair* of two chars. Code that naively iterates char-by-char can split such a
-// pair in half and corrupt the text. .NET 11 rounds out Rune support by adding Rune-aware
-// overloads directly on String, StringBuilder and TextWriter, so you no longer need to convert
-// through intermediate collections just to work correctly with the full Unicode range.
+// A Rune represents a single Unicode scalar value. Characters
+// outside the Basic Multilingual
+// Plane (most emoji, some CJK ideographs, ...) don't fit in one
+// System.Char - they're encoded
+// as a surrogate *pair* of two chars. Code that naively
+// iterates char-by-char can split such a
+// pair in half and corrupt the text. .NET 11 rounds out Rune
+// support by adding Rune-aware
+// overloads directly on String, StringBuilder and TextWriter,
+// so you no longer need to convert
+// through intermediate collections just to work correctly with
+// the full Unicode range.
 
-const string text = "Warsaw \U0001F1F5\U0001F1F1 .NET 11 \U0001F680"; // flag + rocket are surrogate pairs
+// flag + rocket are surrogate pairs
+const string text = "Warsaw \U0001F1F5\U0001F1F1 .NET 11 \U0001F680";
 
 Console.WriteLine($"\"{text}\"");
 Console.WriteLine($"UTF-16 char count: {text.Length}");
@@ -27,7 +34,8 @@ foreach (var rune in text.EnumerateRunes().Where(r => !Rune.IsWhiteSpace(r) && !
     Console.WriteLine($"  Rune U+{rune.Value:X4} '{rune}' (Utf16SequenceLength: {rune.Utf16SequenceLength})");
 }
 
-// New in .NET 11: StringBuilder and TextWriter gain first-class Rune overloads.
+// New in .NET 11: StringBuilder and TextWriter gain first-class
+// Rune overloads.
 var builder = new StringBuilder();
 foreach (var rune in text.EnumerateRunes())
 {

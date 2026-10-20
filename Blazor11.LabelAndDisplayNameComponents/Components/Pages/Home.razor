@@ -15,13 +15,20 @@
 
 <EditForm Model="model" OnValidSubmit="Submit">
     <div class="mb-3">
-        @* Non-nested pattern: the Label renders its own <label for="..."> pointing at the input that follows. *@
+        @*
+           Non-nested pattern: the Label renders its own <label
+           for="..."> pointing at the input that follows.
+        *@
         <Label For="() => model.Name" />
         <InputText @bind-Value="model.Name" class="form-control" />
     </div>
 
     <div class="mb-3">
-        @* Nested pattern: the InputText is the Label's ChildContent, so everything is wrapped in one <label>. *@
+        @*
+           Nested pattern: the InputText is the Label's
+           ChildContent, so everything is wrapped in one
+           <label>.
+        *@
         <Label For="() => model.Email">
             <InputText @bind-Value="model.Email" class="form-control" />
         </Label>

@@ -1,11 +1,16 @@
 using System.Text;
 using System.Text.Json;
 
-// JSON Lines (a.k.a. NDJSON) is one JSON value per line - a format widely used for logs, event
-// streams and bulk-import files because it can be produced/consumed incrementally without ever
-// holding the whole payload in memory. .NET 11 adds a new `topLevelValues` parameter to
-// JsonSerializer.SerializeAsyncEnumerable: when true, each element is written as its own
-// top-level JSON value separated by JsonSerializerOptions.NewLine, instead of being wrapped in
+// JSON Lines (a.k.a. NDJSON) is one JSON value per line - a
+// format widely used for logs, event
+// streams and bulk-import files because it can be
+// produced/consumed incrementally without ever
+// holding the whole payload in memory. .NET 11 adds a new
+// `topLevelValues` parameter to
+// JsonSerializer.SerializeAsyncEnumerable: when true, each
+// element is written as its own
+// top-level JSON value separated by
+// JsonSerializerOptions.NewLine, instead of being wrapped in
 // a single JSON array.
 
 var entries = new[]
@@ -27,7 +32,8 @@ Console.WriteLine(jsonLines);
 
 
 
-// Reading JSON Lines back is just: read line-by-line, deserialize each line on its own.
+// Reading JSON Lines back is just: read line-by-line,
+// deserialize each line on its own.
 Console.WriteLine("--- Deserialized back ---");
 using var reader = new StringReader(jsonLines);
 string? line;

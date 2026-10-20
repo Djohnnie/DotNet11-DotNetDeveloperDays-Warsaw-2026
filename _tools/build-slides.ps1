@@ -124,6 +124,77 @@ $body = @(
 ) -join "`n"
 SaveSlide 'slide-03.svg' 'Explore the code and examples' 'QR code linking to the .NET 11 and C# 15 examples repository.' $body '03' 'FOLLOW ALONG'
 
+$supportPolicyUrl = 'https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core'
+$body = @(
+    (Text 100 245 '.NET ships every November' 68 'heading')
+    (Text 100 310 'Even versions: Long Term Support (3 years)  /  Odd versions: Standard Term Support (2 years)' 28)
+    for ($year = 2023; $year -le 2030; $year++) {
+        $x = 420 + ($year - 2023) * 190
+        "<path d='M$x 395V820' stroke='#363636' stroke-dasharray='4 8'/>"
+        (Text ($x - 20) 350 'NOV' 18)
+        (Text ($x - 30) 382 "$year" 26)
+    }
+    for ($version = 8; $version -le 12; $version++) {
+        $isLts = $version % 2 -eq 0
+        $duration = if ($isLts) { 3 } else { 2 }
+        $track = if ($isLts) { 'LTS' } else { 'STS' }
+        $color = if ($isLts) { '#ff6a3f' } else { '#66c7db' }
+        $x = 420 + ($version - 8) * 190
+        $y = 410 + ($version - 8) * 84
+        $width = $duration * 190
+        $label = if ($version -ge 11) { ".NET $version *" } else { ".NET $version" }
+        $outline = if ($version -ge 11) { "stroke-dasharray='8 6'" } else { '' }
+        (Text 100 ($y + 37) $label 30 'heading')
+        "<rect x='$x' y='$y' width='$width' height='56' rx='12' fill='$color' fill-opacity='0.18' stroke='$color' stroke-width='2' $outline/>"
+        (Text ($x + 22) ($y + 36) "$track / $duration years" 24)
+        "<circle cx='$x' cy='$($y + 28)' r='6' fill='$color'/>"
+        "<path d='M$($x + $width) $($y + 16)v24' stroke='$color' stroke-width='3'/>"
+    }
+    (Text 100 865 '* .NET 11 and .NET 12: planned releases. Bars show support duration; exact end dates follow Patch Tuesday.' 22)
+    "<a href='$supportPolicyUrl'>$(Text 100 925 'Source: Microsoft .NET support policy' 20)</a>"
+) -join "`n"
+SaveSlide 'slide-04.svg' '.NET release cadence' 'Annual November releases, with three years of LTS support for even versions and two years of STS support for odd versions. Timeline from November 2023 to November 2030.' $body '04' 'RELEASE CADENCE'
+
+# Release-date snapshot from Microsoft's release metadata, verified on 20 October 2026.
+$releaseNotesUrl = 'https://github.com/dotnet/core/blob/main/release-notes/11.0/releases.json'
+$previewReleases = @(
+    @{ Name = 'Preview 1'; Date = '2026-02-10' }
+    @{ Name = 'Preview 2'; Date = '2026-03-10' }
+    @{ Name = 'Preview 3'; Date = '2026-04-14' }
+    @{ Name = 'Preview 4'; Date = '2026-05-12' }
+    @{ Name = 'Preview 5'; Date = '2026-06-09' }
+    @{ Name = 'Preview 6'; Date = '2026-07-14' }
+    @{ Name = 'Preview 7'; Date = '2026-08-11' }
+    @{ Name = 'RC 1'; Date = '2026-09-08' }
+    @{ Name = 'RC 2'; Date = '2026-10-13' }
+)
+$body = @(
+    (Text 100 245 'The road to .NET 11' 68 'heading')
+    (Text 100 315 '2026 / Seven previews, followed by two release candidates' 30)
+    '<path d="M140 590H1790l-16 -10m16 10l-16 10" fill="none" stroke="#777777" stroke-width="4"/>'
+    for ($i = 0; $i -lt $previewReleases.Count; $i++) {
+        $release = $previewReleases[$i]
+        $x = 180 + $i * 195
+        $above = $i % 2 -eq 0
+        $labelY = if ($above) { 455 } else { 715 }
+        $connectorY = if ($above) { 520 } else { 660 }
+        $isRc = $release.Name.StartsWith('RC')
+        $color = if ($isRc) { '#66c7db' } else { '#ff6a3f' }
+        $date = [datetime]::ParseExact($release.Date, 'yyyy-MM-dd', [Globalization.CultureInfo]::InvariantCulture)
+        $dateLabel = $date.ToString('dd MMM yyyy', [Globalization.CultureInfo]::InvariantCulture)
+        "<path d='M$x 590V$connectorY' stroke='$color' stroke-width='2'/>"
+        "<circle cx='$x' cy='590' r='11' fill='$color' stroke='#161616' stroke-width='4'/>"
+        "<text x='$x' y='$labelY' text-anchor='middle' font-size='30' class='heading'>$($release.Name)</text>"
+        "<text x='$x' y='$($labelY + 44)' text-anchor='middle' font-size='26'>$dateLabel</text>"
+    }
+    '<circle cx="110" cy="840" r="6" fill="#ff6a3f"/>'
+    (Text 130 848 'Previews: public testing, not supported' 24)
+    '<circle cx="820" cy="840" r="6" fill="#66c7db"/>'
+    (Text 840 848 'Release candidates: go-live support' 24)
+    "<a href='$releaseNotesUrl'>$(Text 100 925 'Source: Microsoft .NET 11 release metadata / Dates verified 20 Oct 2026' 20)</a>"
+) -join "`n"
+SaveSlide 'slide-05.svg' '.NET 11 previews and release candidates' 'Left-to-right timeline of all seven .NET 11 previews and both release candidates, with their release dates from February to October 2026.' $body '05' '.NET 11 RELEASE TIMELINE'
+
 function SaveFeatureSlide([int]$number, [string]$title, [string[]]$features) {
     $columnCount = if ($features.Count -gt 6) { 2 } else { 1 }
     $rowCount = [Math]::Ceiling($features.Count / [double]$columnCount)
@@ -146,84 +217,25 @@ function SaveFeatureSlide([int]$number, [string]$title, [string[]]$features) {
     SaveSlide "slide-$slideNumber.svg" $title "Overview of .NET 11 and C# 15 features: $title." $body $slideNumber 'FEATURE OVERVIEW'
 }
 
-SaveFeatureSlide 4 'C# 15' @(
-    'Collection expression arguments'
-    'Union types'
-    'Closed hierarchies'
-    'Extension indexers'
-    'Labeled break and continue'
-    'Memory-safety updates'
-)
-
-SaveFeatureSlide 5 '.NET libraries and runtime' @(
-    'Run processes and capture output'
-    'Control process lifetime and inspect exit status'
-    'Stream memory and text without copying'
-    'Compress and decompress spans'
-    'Protect ZIP entries with passwords'
-    'Add Zstandard compression'
-    'Validate ZIP checksums when reading'
-    'Create hard links'
-    'Serialize asynchronous streams as JSON Lines'
-    'Expand JSON contracts and numeric support'
-    'Resolve DNS record types'
-    'Work with Unicode scalars and validate text'
-    'Use ordinal casing and floating-point hex'
-    'Construct bit arrays from spans'
-    'Build frozen dictionaries from collection expressions'
-    'Add generic numeric APIs'
-    'Parse numbers from delimited input'
-    'Join both sides of two LINQ sequences'
-    'Validate data asynchronously'
-    'Use newer cryptography and faster Half operations'
-    'Runtime-managed async (preview)'
-)
-
-SaveFeatureSlide 6 'SDK and build' @(
-    'Run the CLI and file-based apps more efficiently'
-    'Pass environment variables and use improved watch workflows'
-    'Improve test runs'
-    'Publish reproducible containers'
-    'Add tar support and expose MSBuild globs'
-)
-
-SaveFeatureSlide 7 'ASP.NET Core and Blazor' @(
-    'Protect endpoints from cross-origin requests by default'
-    'Use async validation in Minimal APIs'
-    'Short-circuit selected endpoints'
-    'Describe server-sent events in OpenAPI'
-    'Navigate relatively and carry temporary data in Blazor'
-    'Pause inactive Blazor Server circuits'
-    'Cache server-rendered component subtrees'
-    'Improve QuickGrid interaction'
-    'Add environment and metadata-aware UI'
-)
-
-SaveFeatureSlide 8 'Entity Framework Core 11' @(
-    'Use complex types with more mappings'
-    'Translate more LINQ and generate leaner SQL'
-    'Query JSON and create JSON indexes'
-    'Search SQL Server with vectors and full text'
-    'Simplify migration workflows'
-    'Inspect tracked entries without extra change detection'
-    'Warn when async queries run synchronously'
-)
-
-SaveFeatureSlide 9 'Windows Forms' @(
-    'Opt into modern visual styles and avoid startup flashes'
-    'Render check boxes as toggle switches'
-    'Suspend painting during bulk updates'
-)
-
-SaveFeatureSlide 10 'WPF' @(
-    'Reliability and compatibility fixes'
-)
+[xml]$solution = [IO.File]::ReadAllText((Join-Path $root 'DotNet11AndCSharp15.slnx'))
+$sections = @($solution.Solution.Folder | Where-Object { $_.Name -match '^/\d+\. [^/]+/$' })
+$featureSlideNumber = 6
+foreach ($section in $sections) {
+    $title = $section.Name.Trim('/') -replace '^\d+\.\s+', ''
+    $features = @(
+        $solution.Solution.Folder |
+            Where-Object { $_.Name.StartsWith($section.Name) -and $_.Name -ne $section.Name } |
+            ForEach-Object { ($_.Name.TrimEnd('/') -split '/')[-1] -replace '^\d+\.\s+', '' }
+    )
+    SaveFeatureSlide $featureSlideNumber $title $features
+    $featureSlideNumber++
+}
 
  $body = @(
     (Text 100 245 'Any questions?' 72 'heading')
     (Text 100 315 'Continue exploring .NET 11 and C# 15' 30)
      "<a href='$repoUrl'><image x='690' y='340' width='540' height='540' href='$repositoryQr'/></a>"
 ) -join "`n"
-SaveSlide 'slide-11.svg' 'Thank you' 'Thank you for joining this overview of .NET 11 and C# 15. Scan the QR code to open the repository.' $body '11' 'THANK YOU'
+SaveSlide 'slide-13.svg' 'Thank you' 'Thank you for joining this overview of .NET 11 and C# 15. Scan the QR code to open the repository.' $body '13' 'THANK YOU'
 
 Write-Host "Built selected slides in $slides"

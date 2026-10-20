@@ -4,17 +4,25 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
 // EF Core 11 - Use complex types with more mappings.
-// Introduced: Preview 1 (complex types with TPT/TPC and JSON); Preview 6 (keys and indexes
-// through complex properties); Preview 7 (additional provider support and refinements).
+// Introduced: Preview 1 (complex types with TPT/TPC and JSON);
+// Preview 6 (keys and indexes
+// through complex properties); Preview 7 (additional provider
+// support and refinements).
 //
-// Complex types are value objects without their own identity. EF Core 11 lets them work with
-// TPT/TPC inheritance, JSON columns and Cosmos DB, and - new in Preview 6 - lets you declare
-// scalar keys and indexes through a complex property using a member-access path such as
-// HasIndex(c => c.Address.PostalCode). See MyDbContext.OnModelCreating for the configuration.
+// Complex types are value objects without their own identity.
+// EF Core 11 lets them work with
+// TPT/TPC inheritance, JSON columns and Cosmos DB, and - new in
+// Preview 6 - lets you declare
+// scalar keys and indexes through a complex property using a
+// member-access path such as
+// HasIndex(c => c.Address.PostalCode). See
+// MyDbContext.OnModelCreating for the configuration.
 //
-// Source: https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-11.0/whatsnew#complex-types
+// Source:
+// https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-11.0/whatsnew#complex-types
 //
-// This demo only inspects the model and the generated SQL, so it never opens a connection.
+// This demo only inspects the model and the generated SQL, so
+// it never opens a connection.
 
 using var dbContext = new MyDbContext();
 

@@ -1,19 +1,29 @@
 @page "/"
 @using Microsoft.AspNetCore.Components
 
-@* .NET 11 Blazor - Cache server-rendered component subtrees.
+@*
+   .NET 11 Blazor - Cache server-rendered component subtrees.
    Introduced: Preview 7.
 
-   CacheView caches the rendered output of a server-side rendered subtree. On a cache hit the
-   child components are not instantiated or rendered again - the previously captured HTML is
-   replayed, which cuts CPU and allocations for expensive server-rendered fragments.
+   CacheView caches the rendered output of a server-side
+   rendered subtree. On a cache hit the
+   child components are not instantiated or rendered again - the
+   previously captured HTML is
+   replayed, which cuts CPU and allocations for expensive
+   server-rendered fragments.
 
-   It supports absolute (ExpiresAfter, ExpiresOn) and sliding (ExpiresSliding) expiration and
-   vary-by dimensions for query string, route, header, cookie, user, culture and an arbitrary
-   VaryBy string. CacheKey disambiguates multiple boundaries under the same parent. Caching is
-   skipped for non-GET requests, when Enabled="false" and inside streaming SSR.
+   It supports absolute (ExpiresAfter, ExpiresOn) and sliding
+   (ExpiresSliding) expiration and
+   vary-by dimensions for query string, route, header, cookie,
+   user, culture and an arbitrary
+   VaryBy string. CacheKey disambiguates multiple boundaries
+   under the same parent. Caching is
+   skipped for non-GET requests, when Enabled="false" and inside
+   streaming SSR.
 
-   Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/aspnetcore.md#cache-blazor-ssr-output-with-cacheview *@
+   Source:
+   https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/aspnetcore.md#cache-blazor-ssr-output-with-cacheview
+*@
 
 <PageTitle>CacheView</PageTitle>
 

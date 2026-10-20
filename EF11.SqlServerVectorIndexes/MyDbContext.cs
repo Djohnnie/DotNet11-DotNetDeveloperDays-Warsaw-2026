@@ -19,10 +19,14 @@ internal class MyDbContext : DbContext
         {
             b.Property(x => x.Embedding).HasColumnType("vector(3)");
 
-            // EF Core 11 can create SQL Server 2025 DiskANN vector indexes through migrations,
-            // enabling *approximate* nearest-neighbor search - much faster than an exact scan
-            // over EF.Functions.VectorDistance() once the table gets large.
-            // NOTE: VECTOR_SEARCH() and vector indexes are still experimental in SQL Server 2025,
+            // EF Core 11 can create SQL Server 2025 DiskANN
+            // vector indexes through migrations,
+            // enabling *approximate* nearest-neighbor search -
+            // much faster than an exact scan
+            // over EF.Functions.VectorDistance() once the table
+            // gets large.
+            // NOTE: VECTOR_SEARCH() and vector indexes are
+            // still experimental in SQL Server 2025,
             // so this EF Core API is subject to change too.
             b.HasVectorIndex(x => x.Embedding)
                 .HasMetric("cosine");

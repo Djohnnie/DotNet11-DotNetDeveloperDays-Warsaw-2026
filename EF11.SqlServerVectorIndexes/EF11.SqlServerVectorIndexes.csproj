@@ -5,9 +5,14 @@
 		<TargetFramework>net11.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<!-- SQL Server vector search/indexes are still experimental in SQL Server 2025, so EF Core
-		     marks these APIs "for evaluation purposes only" (EF9105) - safe to suppress here since
-		     this whole project exists to demo exactly that experimental feature. -->
+		<!--
+		   SQL Server vector search/indexes are still
+		   experimental in SQL Server 2025, so EF Core
+		   marks these APIs "for evaluation purposes only"
+		   (EF9105) - safe to suppress here since
+		   this whole project exists to demo exactly that
+		   experimental feature.
+		-->
 		<NoWarn>$(NoWarn);EF9105</NoWarn>
 	</PropertyGroup>
 

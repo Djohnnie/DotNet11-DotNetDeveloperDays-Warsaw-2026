@@ -1,12 +1,16 @@
 // .NET 11 Libraries - Construct bit arrays from spans.
 // Introduced: RC 1.
 //
-// BitArray now accepts ReadOnlySpan<bool>, ReadOnlySpan<byte> and ReadOnlySpan<int>, so a bit
-// array can be built directly from a slice or from stack-allocated data without first
-// allocating an array. Windows Arm64 benchmarks showed 33-51% faster construction and
+// BitArray now accepts ReadOnlySpan<bool>, ReadOnlySpan<byte>
+// and ReadOnlySpan<int>, so a bit
+// array can be built directly from a slice or from
+// stack-allocated data without first
+// allocating an array. Windows Arm64 benchmarks showed 33-51%
+// faster construction and
 // 50-89% fewer allocations compared to calling span.ToArray().
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc1/libraries.md#construct-bitarray-values-from-spans
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc1/libraries.md#construct-bitarray-values-from-spans
 
 using System.Collections;
 

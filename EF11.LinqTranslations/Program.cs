@@ -3,16 +3,21 @@ using EF11.LinqTranslations.Entities;
 using Microsoft.EntityFrameworkCore;
 
 // EF Core 11 - Translate more LINQ and generate leaner SQL.
-// Introduced: Preview 2 (MaxBy/MinBy); Preview 3 (join pruning); Preview 5 (cleaner SQL);
+// Introduced: Preview 2 (MaxBy/MinBy); Preview 3 (join
+// pruning); Preview 5 (cleaner SQL);
 // Preview 6 (FullJoin); Preview 7 (GroupBy enhancements).
 //
-// EF Core 11 adds relational FullJoin translation, expands GroupBy, and translates
-// MaxBy/MinBy. The query pipeline also prunes redundant joins, ordering keys and no-op casts,
+// EF Core 11 adds relational FullJoin translation, expands
+// GroupBy, and translates
+// MaxBy/MinBy. The query pipeline also prunes redundant joins,
+// ordering keys and no-op casts,
 // so the generated SQL is noticeably leaner.
 //
-// Source: https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-11.0/whatsnew#linq-and-sql-translation
+// Source:
+// https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-11.0/whatsnew#linq-and-sql-translation
 //
-// This demo only prints the translated SQL via ToQueryString(), so it never opens a connection.
+// This demo only prints the translated SQL via ToQueryString(),
+// so it never opens a connection.
 
 using var dbContext = new MyDbContext();
 
@@ -22,7 +27,8 @@ Show("FullJoin - both sides are kept, new in Preview 6",
             dbContext.Orders,
             customer => customer.Id,
             order => order.CustomerId,
-            // FullJoin keeps unmatched rows on both sides, so either element can be null.
+            // FullJoin keeps unmatched rows on both sides, so
+            // either element can be null.
             (customer, order) => new
             {
                 CustomerName = customer != null ? customer.Name : null,

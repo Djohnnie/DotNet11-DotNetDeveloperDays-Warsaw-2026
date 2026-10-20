@@ -2,9 +2,12 @@ using System.Globalization;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 
-// .NET 11 adds IEEE 754-2019 decimal floating-point types to System.Numerics.
-// These complement System.Decimal; they do not change the meaning of decimal or the m suffix.
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#ieee-754-decimal-floating-point-types
+// .NET 11 adds IEEE 754-2019 decimal floating-point types to
+// System.Numerics.
+// These complement System.Decimal; they do not change the
+// meaning of decimal or the m suffix.
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#ieee-754-decimal-floating-point-types
 
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 

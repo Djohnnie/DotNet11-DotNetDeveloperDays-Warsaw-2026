@@ -1,14 +1,20 @@
 // .NET 11 Libraries - Stream memory and text without copying.
 // Introduced: Preview 6.
 //
-// Four new Stream types wrap in-memory data so it can be handed to any API that expects a
+// Four new Stream types wrap in-memory data so it can be handed
+// to any API that expects a
 // Stream, without first copying into a MemoryStream:
-//   * ReadOnlyMemoryStream   - exposes a ReadOnlyMemory<byte> as a read-only stream.
-//   * WritableMemoryStream   - exposes a writable Memory<byte> as a fixed-size stream.
-//   * ReadOnlySequenceStream - streams over ReadOnlySequence<byte> segments without flattening.
-//   * StringStream           - reads a string / ReadOnlyMemory<char> using a given encoding.
+//   * ReadOnlyMemoryStream   - exposes a ReadOnlyMemory<byte>
+//     as a read-only stream.
+//   * WritableMemoryStream   - exposes a writable Memory<byte>
+//     as a fixed-size stream.
+//   * ReadOnlySequenceStream - streams over
+//     ReadOnlySequence<byte> segments without flattening.
+//   * StringStream           - reads a string /
+//     ReadOnlyMemory<char> using a given encoding.
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview6/libraries.md
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview6/libraries.md
 
 using System.Buffers;
 using System.Text;

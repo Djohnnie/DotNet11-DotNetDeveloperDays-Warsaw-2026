@@ -6,16 +6,34 @@ public partial class MainForm : Form
     {
         InitializeComponent();
 
+        for (var i = 1; i <= 8; i++)
+        {
+            labelsPanel.Controls.Add(new Label
+            {
+                Text = $"Item {i}",
+                AutoSize = true,
+                Left = 10,
+                Top = 10 + (i - 1) * 20
+            });
+        }
+
         rearrangeButton.Click += (_, _) => RearrangeLabels();
     }
 
     private void RearrangeLabels()
     {
-        // Every Control now implements ISupportSuspendPainting, and the ControlMutationExtensions.SuspendPainting
-        // extension method returns an IDisposable scope that suppresses repaint/layout notifications while several
-        // controls are moved or resized in bulk - eliminating the flicker you'd otherwise see doing this one control
-        // at a time. TargetAndDescendants also suspends painting for the container's child controls, not just the
-        // container itself, whereas SuspendLayout/ResumeLayout only defers layout logic, not painting.
+        // Every Control now implements ISupportSuspendPainting,
+        // and the ControlMutationExtensions.SuspendPainting
+        // extension method returns an IDisposable scope that
+        // suppresses repaint/layout notifications while several
+        // controls are moved or resized in bulk - eliminating
+        // the flicker you'd otherwise see doing this one
+        // control
+        // at a time. TargetAndDescendants also suspends
+        // painting for the container's child controls, not just
+        // the
+        // container itself, whereas SuspendLayout/ResumeLayout
+        // only defers layout logic, not painting.
         using (labelsPanel.SuspendPainting(LayoutSuspendTraversal.TargetAndDescendants))
         {
             var random = new Random();

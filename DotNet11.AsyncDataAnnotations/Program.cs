@@ -1,15 +1,20 @@
 // .NET 11 Libraries - Validate data asynchronously.
 // Introduced: Preview 6.
 //
-// System.ComponentModel.DataAnnotations now supports asynchronous validation, so a rule that
-// needs I/O (a database lookup, a remote API call) no longer has to block a thread. There are
+// System.ComponentModel.DataAnnotations now supports
+// asynchronous validation, so a rule that
+// needs I/O (a database lookup, a remote API call) no longer
+// has to block a thread. There are
 // three new ways to express an async rule:
-//   * derive from AsyncValidationAttribute and override IsValidAsync,
+//   * derive from AsyncValidationAttribute and override
+//     IsValidAsync,
 //   * implement IAsyncValidatableObject on the model,
-//   * call Validator.ValidateObjectAsync / TryValidateObjectAsync / ValidatePropertyAsync /
+//   * call Validator.ValidateObjectAsync /
+//     TryValidateObjectAsync / ValidatePropertyAsync /
 //     ValidateValueAsync.
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview6/libraries.md#asynchronous-validation-with-dataannotations
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview6/libraries.md#asynchronous-validation-with-dataannotations
 
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
@@ -87,7 +92,8 @@ internal sealed class Invoice : IAsyncValidatableObject
         }
     }
 
-    // IAsyncValidatableObject also inherits IValidatableObject; this model only validates
+    // IAsyncValidatableObject also inherits IValidatableObject;
+    // this model only validates
     // asynchronously, so the synchronous path yields nothing.
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext) => [];
 }

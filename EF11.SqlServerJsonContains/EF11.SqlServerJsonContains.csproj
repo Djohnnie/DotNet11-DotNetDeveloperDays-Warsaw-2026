@@ -5,9 +5,14 @@
 		<TargetFramework>net11.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<!-- EF.Functions.JsonContains() is still "for evaluation purposes only" (EF9106) while
-		     SQL Server 2025's JSON_CONTAINS() itself is new - safe to suppress here since this
-		     whole project exists to demo exactly that experimental feature. -->
+		<!--
+		   EF.Functions.JsonContains() is still "for evaluation
+		   purposes only" (EF9106) while
+		   SQL Server 2025's JSON_CONTAINS() itself is new -
+		   safe to suppress here since this
+		   whole project exists to demo exactly that
+		   experimental feature.
+		-->
 		<NoWarn>$(NoWarn);EF9106</NoWarn>
 	</PropertyGroup>
 

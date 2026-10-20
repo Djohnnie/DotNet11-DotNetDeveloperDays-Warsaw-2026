@@ -2,13 +2,19 @@ using EF11.ChangeTrackerGetEntriesForState;
 using EF11.ChangeTrackerGetEntriesForState.Entities;
 using Microsoft.EntityFrameworkCore;
 
-// EF Core 11 adds ChangeTracker.GetEntriesForState(added, modified, deleted, unchanged).
-// Previously, getting the entries for a specific EntityState meant calling ChangeTracker.Entries()
-// (which runs a full DetectChanges() pass over every tracked entity) and then filtering with LINQ.
-// GetEntriesForState() lets you ask directly for the states you care about, avoiding that extra
-// change-detection pass - handy in long-lived contexts or high-volume change-tracking code.
+// EF Core 11 adds ChangeTracker.GetEntriesForState(added,
+// modified, deleted, unchanged).
+// Previously, getting the entries for a specific EntityState
+// meant calling ChangeTracker.Entries()
+// (which runs a full DetectChanges() pass over every tracked
+// entity) and then filtering with LINQ.
+// GetEntriesForState() lets you ask directly for the states you
+// care about, avoiding that extra
+// change-detection pass - handy in long-lived contexts or
+// high-volume change-tracking code.
 //
-// This demo only needs an in-memory change tracker, so it never touches the database.
+// This demo only needs an in-memory change tracker, so it never
+// touches the database.
 
 using var dbContext = new MyDbContext();
 
@@ -25,12 +31,14 @@ toUpdate.Name = "ASP.NET Core Blog";
 dbContext.Remove(toDelete);
 dbContext.Add(toAdd);
 
-// Old way: ChangeTracker.Entries() runs DetectChanges() and then you filter with LINQ.
+// Old way: ChangeTracker.Entries() runs DetectChanges() and
+// then you filter with LINQ.
 var modifiedTheOldWay = dbContext.ChangeTracker.Entries<Blog>()
     .Where(e => e.State == EntityState.Modified)
     .ToList();
 
-// New way: ask directly for the states you care about - no extra DetectChanges() pass needed
+// New way: ask directly for the states you care about - no
+// extra DetectChanges() pass needed
 // when you already know which states matter.
 var addedOrModified = dbContext.ChangeTracker.GetEntriesForState(
     added: true,

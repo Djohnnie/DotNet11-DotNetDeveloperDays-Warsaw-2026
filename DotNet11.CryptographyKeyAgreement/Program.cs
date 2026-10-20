@@ -1,13 +1,21 @@
-// .NET 11 Libraries - Use newer cryptography and faster Half operations.
-// Introduced: Preview 5 (X25519 key agreement); RC 1 (AES Key Wrap, FP16 hardware Half math).
+// .NET 11 Libraries - Use newer cryptography and faster Half
+// operations.
+// Introduced: Preview 5 (X25519 key agreement); RC 1 (AES Key
+// Wrap, FP16 hardware Half math).
 //
-//   * System.Security.Cryptography.X25519DiffieHellman implements X25519 elliptic-curve
-//     Diffie-Hellman key agreement - the curve used by TLS 1.3, Signal and Noise.
-//   * CryptographicOperations.FixedTimeEquals(ReadOnlySpan<byte>, byte) compares a buffer
+//   * System.Security.Cryptography.X25519DiffieHellman
+//     implements X25519 elliptic-curve
+//     Diffie-Hellman key agreement - the curve used by TLS 1.3,
+//     Signal and Noise.
+//   * CryptographicOperations.
+//     FixedTimeEquals(ReadOnlySpan<byte>, byte) compares a
+//     buffer
 //     against a single byte value in constant time.
-//   * Aes gains the unpadded AES Key Wrap algorithm from RFC 3394: EncryptKeyWrap,
+//   * Aes gains the unpadded AES Key Wrap algorithm from RFC
+//     3394: EncryptKeyWrap,
 //     DecryptKeyWrap, TryDecryptKeyWrap and GetKeyWrapLength.
-//   * The JIT now uses FP16 hardware instructions for Half arithmetic and conversions.
+//   * The JIT now uses FP16 hardware instructions for Half
+//     arithmetic and conversions.
 //
 // Sources:
 //   https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview5/libraries.md#cryptography-adds-x25519-key-agreement

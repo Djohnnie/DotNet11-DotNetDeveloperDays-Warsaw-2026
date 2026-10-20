@@ -1,12 +1,18 @@
-// .NET 11 Libraries - Expand JSON contracts and numeric support.
-// Introduced: Preview 1 (BFloat16); Preview 3 (naming and ignore policies); Preview 7
-// (closed-hierarchy inference and decimal types); RC 1 (numeric converters + schema metadata).
+// .NET 11 Libraries - Expand JSON contracts and numeric
+// support.
+// Introduced: Preview 1 (BFloat16); Preview 3 (naming and
+// ignore policies); Preview 7
+// (closed-hierarchy inference and decimal types); RC 1 (numeric
+// converters + schema metadata).
 //
-// System.Text.Json gains built-in converters for BFloat16 and the IEEE 754 decimal
-// floating-point types (Decimal32/Decimal64/Decimal128), and JsonSchemaExporter now
+// System.Text.Json gains built-in converters for BFloat16 and
+// the IEEE 754 decimal
+// floating-point types (Decimal32/Decimal64/Decimal128), and
+// JsonSchemaExporter now
 // describes byte data with "contentEncoding": "base64".
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc1/libraries.md#json-support-for-new-numeric-types-and-binary-schemas
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/rc1/libraries.md#json-support-for-new-numeric-types-and-binary-schemas
 
 using System.Numerics;
 using System.Text.Json;

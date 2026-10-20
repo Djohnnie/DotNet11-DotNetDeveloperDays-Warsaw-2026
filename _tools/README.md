@@ -20,7 +20,7 @@ To regenerate only selected slides without touching the others:
 ```
 
 Edit the content and layouts in `build-slides.ps1` and rerun it. It generates
-`slide-01.svg` through `slide-11.svg`, embedding the fonts, conference logo,
+`slide-01.svg` through `slide-13.svg`, embedding the fonts, conference logo,
 Zure icon, speaker photo, and repository QR code from `_resources`. Use
 `-OnlySlides` with slide numbers to regenerate selected slides without
 touching the others.
@@ -30,9 +30,19 @@ important content within the 100-unit horizontal margins and above the footer
 at y=985. Use Raleway 700 for headings and Open Sans for body text. XML-escape
 text when editing the generator.
 
-Slides 2 through 11 include the repository link, Zure icon, and slide number
-in the footer; the title slide has no footer. Slides 4 through 10 list the
-feature titles from `dotnet11\SOURCES.md` without feature details.
+Slides 2 through 13 include the repository link, Zure icon, and slide number
+in the footer; the title slide has no footer. Slide 4 shows the annual release
+cadence and LTS/STS support durations from the
+[Microsoft support policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core).
+Slide 5 shows all .NET 11 previews and release candidates, using release dates
+from [Microsoft's release metadata](https://github.com/dotnet/core/blob/main/release-notes/11.0/releases.json),
+verified on 20 October 2026. These dates are embedded in the generator so
+building slides does not require network access.
+
+Slides 6 through 12 list the
+numbered example folders from `DotNet11AndCSharp15.slnx`, grouped and ordered
+as in the solution, without feature details. Rebuild these slides after adding
+or renaming examples in the solution.
 
 ## Export PowerPoint
 

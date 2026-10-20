@@ -8,10 +8,14 @@ static class Program
     [STAThread]
     static void Main()
     {
-        // .NET 11 Preview 7 introduces a new, opt-in rendering pipeline for Button, CheckBox,
-        // RadioButton, GroupBox, TextBox and RichTextBox: VisualStylesMode.Net11.
-        // It is opt-in application-wide (existing apps keep rendering exactly as before)
-        // via Application.SetDefaultVisualStylesMode, called before Application.Run.
+        // .NET 11 Preview 7 introduces a new, opt-in rendering
+        // pipeline for Button, CheckBox,
+        // RadioButton, GroupBox, TextBox and RichTextBox:
+        // VisualStylesMode.Net11.
+        // It is opt-in application-wide (existing apps keep
+        // rendering exactly as before)
+        // via Application.SetDefaultVisualStylesMode, called
+        // before Application.Run.
         Application.SetDefaultVisualStylesMode(VisualStylesMode.Net11);
 
         ApplicationConfiguration.Initialize();

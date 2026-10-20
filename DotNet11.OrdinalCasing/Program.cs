@@ -1,10 +1,16 @@
-// Requires the .NET 11 Preview 7 SDK or later - this API isn't present yet in Preview 6.
+// Requires the .NET 11 Preview 7 SDK or later - this API isn't
+// present yet in Preview 6.
 //
-// .NET 11 adds culture-agnostic ToUpperOrdinal/ToLowerOrdinal to char, string, Rune and MemoryExtensions
-// (so it also works on ReadOnlySpan<char> without allocating). Ordinal casing uses the same simple
-// one-to-one mapping as OrdinalIgnoreCase comparisons, so it stays deterministic regardless of the
-// current culture - unlike ToUpper()/ToLower(), which are culture-sensitive and can produce surprising
-// results (the classic "Turkish I" problem: in tr-TR, "i".ToUpper() is "İ", not "I").
+// .NET 11 adds culture-agnostic ToUpperOrdinal/ToLowerOrdinal
+// to char, string, Rune and MemoryExtensions
+// (so it also works on ReadOnlySpan<char> without allocating).
+// Ordinal casing uses the same simple
+// one-to-one mapping as OrdinalIgnoreCase comparisons, so it
+// stays deterministic regardless of the
+// current culture - unlike ToUpper()/ToLower(), which are
+// culture-sensitive and can produce surprising
+// results (the classic "Turkish I" problem: in tr-TR,
+// "i".ToUpper() is "İ", not "I").
 
 using System.Globalization;
 

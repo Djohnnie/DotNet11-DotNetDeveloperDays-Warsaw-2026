@@ -1,4 +1,6 @@
 @page "/"
+@implements IDisposable
+@inject CircuitDiagnostics Diagnostics
 
 <PageTitle>Home</PageTitle>
 
@@ -13,16 +15,77 @@
     state - without you having to write any pause/resume code yourself.
 </p>
 
+<h2>Circuit diagnostics</h2>
+
+@if (Diagnostics.CircuitId is { } circuitId)
+{
+    <dl>
+        <dt>Circuit ID (first 12 characters)</dt>
+        <dd><code title="@circuitId">@circuitId[..Math.Min(12, circuitId.Length)]</code></dd>
+        <dt>Connection status</dt>
+        <dd>@(Diagnostics.IsConnected ? "Connected" : "Disconnected")</dd>
+        <dt>Connection-up events (this circuit)</dt>
+        <dd>@Diagnostics.ConnectionUpCount</dd>
+        <dt>Last connected (UTC)</dt>
+        <dd>@Diagnostics.LastConnectedAt?.ToString("HH:mm:ss 'UTC'")</dd>
+        <dt>Connection-down events (this circuit)</dt>
+        <dd>@Diagnostics.ConnectionDownCount</dd>
+        <dt>Last disconnected (UTC)</dt>
+        <dd>@(Diagnostics.LastDisconnectedAt?.ToString("HH:mm:ss 'UTC'") ?? "Not yet")</dd>
+    </dl>
+}
+else
+{
+    <p>Waiting for the interactive circuit...</p>
+}
+
 <p>
-    Component render count so far: <strong>@renderCount</strong>
-    (increments each time this component re-renders, e.g. on reconnect after a resume).
+    A transient reconnect can keep the same circuit ID and increase its connection-up count.
+    A resume into a new circuit can change the ID and reset these diagnostics.
+    Watch the server console for circuit-opened, connection-up, connection-down, and circuit-closed events.
+    The browser cannot display live updates while disconnected.
 </p>
+
+<h2>State that survives a pause</h2>
+
+<label for="preserved-message" class="form-label">Message to preserve</label>
+<input id="preserved-message" class="form-control mb-3" @bind="Message" @bind:event="oninput" />
+
+<p>Preserved click count: <strong>@ClickCount</strong></p>
+<button class="btn btn-primary mb-3" @onclick="() => ClickCount++">Increment preserved count</button>
+
+<p>
+    Enter a message and increment the count, then hide this tab for more than 30 seconds.
+    Return and compare the circuit ID while checking that your message and count are restored.
+    Both values use <code>[PersistentState]</code>; the diagnostics and render count below do not.
+</p>
+
+<p>
+    Component render count so far: <strong>@(++renderCount)</strong>
+    (increments each time this component renders; reconnecting does not necessarily trigger a render).
+</p>
+
+<button class="btn btn-primary" @onclick="StateHasChanged">Render again</button>
 
 @code {
     private int renderCount;
 
-    protected override void OnAfterRender(bool firstRender)
+    [PersistentState]
+    public string? Message { get; set; }
+
+    [PersistentState]
+    public int ClickCount { get; set; }
+
+    protected override void OnInitialized()
     {
-        renderCount++;
+        Message ??= "This message should survive a pause.";
+        Diagnostics.Changed += OnDiagnosticsChangedAsync;
+    }
+
+    private Task OnDiagnosticsChangedAsync() => InvokeAsync(StateHasChanged);
+
+    public void Dispose()
+    {
+        Diagnostics.Changed -= OnDiagnosticsChangedAsync;
     }
 }

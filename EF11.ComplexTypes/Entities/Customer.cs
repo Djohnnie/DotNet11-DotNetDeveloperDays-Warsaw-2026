@@ -6,7 +6,8 @@ public class Customer
 
     public string Name { get; set; } = string.Empty;
 
-    // Complex types are value objects: they have no key of their own and are stored
+    // Complex types are value objects: they have no key of
+    // their own and are stored
     // inline with the owning entity (or inside a JSON column).
     public Address ShippingAddress { get; set; } = null!;
 

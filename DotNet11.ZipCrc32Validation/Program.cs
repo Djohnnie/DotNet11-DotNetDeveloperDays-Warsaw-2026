@@ -1,11 +1,15 @@
 // .NET 11 Libraries - Validate ZIP checksums when reading.
 // Introduced: Preview 3.
 //
-// ZIP entry reads now validate the stored CRC32. Corrupted or tampered entry data fails with
-// InvalidDataException when the entry stream is read to the end, instead of silently handing
-// back wrong bytes. (Preview 3 also moved the Zstandard APIs into System.IO.Compression.)
+// ZIP entry reads now validate the stored CRC32. Corrupted or
+// tampered entry data fails with
+// InvalidDataException when the entry stream is read to the
+// end, instead of silently handing
+// back wrong bytes. (Preview 3 also moved the Zstandard APIs
+// into System.IO.Compression.)
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview3/libraries.md#zstandard-moved-to-systemiocompression-and-zip-reads-validate-crc32
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview3/libraries.md#zstandard-moved-to-systemiocompression-and-zip-reads-validate-crc32
 
 using System.IO.Compression;
 using System.Text;
@@ -16,7 +20,8 @@ try
 {
     byte[] original = Encoding.UTF8.GetBytes("The quick brown fox jumps over the lazy dog.");
 
-    // Store (not deflate) so the payload bytes are easy to corrupt in place.
+    // Store (not deflate) so the payload bytes are easy to
+    // corrupt in place.
     using (var archive = ZipFile.Open(zipPath, ZipArchiveMode.Create))
     {
         ZipArchiveEntry entry = archive.CreateEntry("data.bin", CompressionLevel.NoCompression);
@@ -57,7 +62,8 @@ static string ReadEntry(string path, string entryName)
     }
 }
 
-// Flip one byte of the stored (uncompressed) payload so the CRC32 no longer matches.
+// Flip one byte of the stored (uncompressed) payload so the
+// CRC32 no longer matches.
 static void CorruptStoredPayload(string path, byte[] payload)
 {
     byte[] bytes = File.ReadAllBytes(path);

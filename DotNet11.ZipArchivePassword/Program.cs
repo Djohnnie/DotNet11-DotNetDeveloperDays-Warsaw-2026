@@ -1,10 +1,16 @@
-// Requires the .NET 11 Preview 7 SDK or later - this API isn't present yet in Preview 6.
+// Requires the .NET 11 Preview 7 SDK or later - this API isn't
+// present yet in Preview 6.
 //
-// .NET 11 adds native password protection to System.IO.Compression's ZipArchive:
-// - ZipArchive.CreateEntry(name, password, encryptionMethod) creates an encrypted entry.
-// - ZipArchiveEntry.Open(password) / OpenAsync(password) reads it back.
-// - ZipEncryptionMethod exposes ZipCrypto (legacy) and WinZip AES-128/192/256.
-// A wrong password throws InvalidDataException when the entry is opened.
+// .NET 11 adds native password protection to
+// System.IO.Compression's ZipArchive:
+// - ZipArchive.CreateEntry(name, password, encryptionMethod)
+//   creates an encrypted entry.
+// - ZipArchiveEntry.Open(password) / OpenAsync(password) reads
+//   it back.
+// - ZipEncryptionMethod exposes ZipCrypto (legacy) and WinZip
+//   AES-128/192/256.
+// A wrong password throws InvalidDataException when the entry
+// is opened.
 
 using System.IO.Compression;
 

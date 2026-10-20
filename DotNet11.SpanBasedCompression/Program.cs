@@ -2,11 +2,16 @@ using System.Buffers;
 using System.IO.Compression;
 using System.Text;
 
-// System.IO.Compression now offers Span<byte>/ReadOnlySpan<byte> encode and decode entry points
-// for the Deflate, ZLib and GZip formats, mirroring the shape BrotliEncoder/BrotliDecoder already had.
-// This avoids allocating a MemoryStream (and the DeflateStream/GZipStream/ZLibStream wrapper around it)
-// when the data you're compressing already lives in a span - useful for protocol parsing, middleware,
-// and other high-throughput scenarios that work directly with buffers.
+// System.IO.Compression now offers
+// Span<byte>/ReadOnlySpan<byte> encode and decode entry points
+// for the Deflate, ZLib and GZip formats, mirroring the shape
+// BrotliEncoder/BrotliDecoder already had.
+// This avoids allocating a MemoryStream (and the
+// DeflateStream/GZipStream/ZLibStream wrapper around it)
+// when the data you're compressing already lives in a span -
+// useful for protocol parsing, middleware,
+// and other high-throughput scenarios that work directly with
+// buffers.
 
 byte[] source = Encoding.UTF8.GetBytes("Hello, .NET 11 span-based compression!");
 Console.WriteLine($"Source: {source.Length} bytes");

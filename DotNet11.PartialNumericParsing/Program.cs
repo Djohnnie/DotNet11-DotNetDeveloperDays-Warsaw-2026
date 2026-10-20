@@ -1,12 +1,16 @@
 // .NET 11 Libraries - Parse numbers from delimited input.
 // Introduced: Preview 7.
 //
-// INumberBase<TSelf>.TryParsePartial adds generic numeric parsing overloads that report how
-// much of the input was consumed. Parsers for formats such as CSV can parse one numeric field
-// and continue with the remaining input, without copying it and without treating the
+// INumberBase<TSelf>.TryParsePartial adds generic numeric
+// parsing overloads that report how
+// much of the input was consumed. Parsers for formats such as
+// CSV can parse one numeric field
+// and continue with the remaining input, without copying it and
+// without treating the
 // delimiter as a parse failure.
 //
-// Source: https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#partial-numeric-parsing
+// Source:
+// https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#partial-numeric-parsing
 
 using System.Globalization;
 
