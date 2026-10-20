@@ -28,10 +28,3 @@ Console.WriteLine($"1/3 as BFloat16: {roundTripped:R} (precision lost, range pre
 // Generic math: the same helper works for BFloat16, float, double, Half, ...
 static T Average<T>(T x, T y) where T : IFloatingPoint<T> => (x + y) / (T.One + T.One);
 Console.WriteLine($"Average(a, b) via generic math = {Average(a, b)}");
-
-
-
-Decimal d = 1m / 3m;
-Decimal32 d32 = (Decimal32)1 / (Decimal32)3;
-Decimal64 d64 = (Decimal64)1 / (Decimal64)3;
-Decimal128 d128 = (Decimal128)1 / (Decimal128)3;

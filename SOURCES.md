@@ -33,6 +33,7 @@ changes in the SDK version you use.
   - [Construct bit arrays from spans](#construct-bit-arrays-from-spans)
   - [Build frozen dictionaries from collection expressions](#build-frozen-dictionaries-from-collection-expressions)
   - [Add generic numeric APIs](#add-generic-numeric-apis)
+  - [Introduce IEEE decimal floating-point types](#introduce-ieee-decimal-floating-point-types)
   - [Parse numbers from delimited input](#parse-numbers-from-delimited-input)
   - [Join both sides of two LINQ sequences](#join-both-sides-of-two-linq-sequences)
   - [Validate data asynchronously](#validate-data-asynchronously)
@@ -430,6 +431,66 @@ Console.WriteLine(z.GetMagnitude()); // 5
 
 [Source: .NET 11 Preview 5 generic random APIs](https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview5/libraries.md#random-adds-generic-numeric-apis) · [Preview 7 generic complex](https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#generic-complext)
 
+### Introduce IEEE decimal floating-point types
+
+**Introduced:** Preview 7; transcendental-function accuracy improved in RC 2.
+
+`System.Numerics.Decimal32`, `Decimal64`, and `Decimal128` bring IEEE 754-2019
+decimal floating-point formats into the BCL. They provide standard decimal
+interchange formats, a choice of storage/precision/range, and IEEE arithmetic
+and generic-math APIs without requiring a third-party numeric implementation.
+These are new types, not replacements for `System.Decimal` (the C# `decimal`
+keyword). The `m` literal suffix still produces a `decimal`.
+
+| Type | Storage | Significant decimal digits | Infinity and NaN |
+|---|---|---|---|
+| `decimal` / `System.Decimal` | 128 bits | 28-29 | No |
+| `Decimal32` | 32 bits | 7 | Yes |
+| `Decimal64` | 64 bits | 16 | Yes |
+| `Decimal128` | 128 bits | 34 | Yes |
+
+Existing `decimal` stores a 96-bit integer coefficient, a sign, and a decimal
+scale from 0 to 28. Its largest value is approximately `7.9e28`, and its
+smallest positive nonzero value is `1e-28`. It already represents values such
+as `0.1` exactly: decimal arithmetic itself is not the new feature.
+
+The new types use the IEEE binary integer decimal (BID) interchange encoding,
+subject to the underlying ABI. Despite "binary" in that encoding's name,
+their numeric radix is 10. They have wider exponent ranges, support
+infinities and NaNs, and implement `IDecimalFloatingPointIeee754<TSelf>`,
+including APIs such as square root and logarithms. Existing `decimal` already
+supports generic math through `IFloatingPoint<TSelf>`, but it does not implement
+the IEEE floating-point interface.
+
+Choose these types for interoperability with IEEE decimal data or when a
+particular precision, storage size, exponent range, or IEEE math behavior is
+required. Keep `decimal` for existing monetary and domain contracts when its
+precision and established finite-value/exception behavior are appropriate.
+Neither choice makes all calculations exact: `1/3` must still round, and
+transcendental results should not be assumed exact. The new types are not
+automatically faster or a universal upgrade for financial code.
+
+The `DotNet11.DecimalFloatingPoint` console project demonstrates all four
+types side by side: storage size, `1/3` precision, base-10 versus binary
+arithmetic, large and small exponents, and division-by-zero behavior.
+
+```console
+dotnet run --project .\DotNet11.DecimalFloatingPoint -c Release
+```
+
+```csharp
+Decimal64 large = Decimal64.Parse("1e50", CultureInfo.InvariantCulture);
+Decimal128 third = (Decimal128)1 / (Decimal128)3;
+Decimal32 infinity = (Decimal32)1 / (Decimal32)0;
+```
+
+Parse decimal text directly or convert from `decimal` rather than first
+rounding through a binary `double`. The demo parses `1e50` and `1e-40` with
+all three IEEE types, while `decimal` cannot represent the former and rounds
+the latter to zero.
+
+[Source: .NET 11 Preview 7 IEEE decimal types](https://github.com/dotnet/core/blob/main/release-notes/11.0/preview/preview7/libraries.md#ieee-754-decimal-floating-point-types)
+
 ### Parse numbers from delimited input
 
 **Introduced:** Preview 7.
@@ -494,18 +555,66 @@ Half result = (Half)1.5f + (Half)2.0f;
 
 ### Runtime-managed async (preview)
 
-**Introduced:** Preview 1; continued to evolve through RC 1.
+**Introduced:** Preview 1; continued to evolve through RC 2.
 
 Runtime Async V2 moves async suspension/resumption state management from
 compiler-generated state machines into the runtime. It aims to improve live
 stack traces, debugging, and async overhead. It remains opt-in preview
 functionality.
 
+The paired console projects `DotNet10.CompilerAsync` and `DotNet11.RuntimeAsync`
+compile exactly the same `Program.cs`. The .NET 10 project explicitly disables
+runtime async; the .NET 11 project enables it. Targeting .NET 11 alone does not
+opt application code into this lowering, and `EnablePreviewFeatures` is no
+longer required for `net11.0`.
+
 ```xml
 <PropertyGroup>
   <Features>runtime-async=on</Features>
 </PropertyGroup>
 ```
+
+Build and run both from the repository root with a .NET 11 RC 2 or newer SDK
+and the .NET 10 and .NET 11 runtimes installed:
+
+```console
+dotnet build .\DotNet10.CompilerAsync -c Release
+dotnet build .\DotNet11.RuntimeAsync -c Release
+dotnet run --project .\DotNet10.CompilerAsync -c Release --no-build
+dotnet run --project .\DotNet11.RuntimeAsync -c Release --no-build
+```
+
+Both print `Result: 42`. Before an actual suspension at `Task.Yield()`, they
+capture a live stack trace through `OuterAsync`, `MiddleAsync`, and `InnerAsync`.
+`NoInlining` keeps these methods visible in optimized builds. Compare the
+compiler-generated infrastructure on .NET 10 with the direct async method
+frames on .NET 11; exact framework frames can vary by runtime version.
+
+For the ILSpy demonstration, open these assemblies:
+
+```text
+DotNet10.CompilerAsync\bin\Release\net10.0\DotNet10.CompilerAsync.dll
+DotNet11.RuntimeAsync\bin\Release\net11.0\DotNet11.RuntimeAsync.dll
+```
+
+Select `RuntimeAsyncDemo.Program.OuterAsync` in each assembly and switch the
+language dropdown to **IL**. Normal C# decompilation can reconstruct `async`
+and `await`, hiding the difference you want to show.
+
+- **.NET 10:** the method initializes an `AsyncTaskMethodBuilder<int>` and
+  starts a generated state machine. Inspect the nested `<OuterAsync>d__...`
+  type and its `MoveNext` method to see state fields, awaiters, and continuation
+  plumbing. Enable display of compiler-generated types/members if necessary.
+- **.NET 11:** the runtime-async method has no corresponding compiler-generated
+  state-machine type or `MoveNext`. Inspect its async implementation flag
+  (`0x2000`) and calls to `Await` / `UnsafeAwaitAwaiter` instead; the runtime
+  manages suspension and resumption.
+  Use a recent ILSpy version that understands .NET 11 metadata. Older versions
+  might not render the new flags or reconstruct C# correctly.
+
+The number suffixes on generated type names are compiler details and may vary.
+This is a code-generation and live-stack demonstration, not a performance
+benchmark; exception stack traces already hide much of the old infrastructure.
 
 [Source: .NET 11 runtime documentation](https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-11/runtime#runtime-async)
 
